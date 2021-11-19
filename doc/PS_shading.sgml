@@ -1,0 +1,122 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>UWE</firstname>">
+  <!ENTITY dhsurname   "<surname>STEINMANN</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>July 14, 2004</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>3</manvolnum>">
+  <!ENTITY dhemail     "<email>uwe@steinmann.cx</email>">
+  <!ENTITY dhusername  "Uwe Steinmann">
+  <!ENTITY dhucpackage "<refentrytitle>PS_SHADING</refentrytitle>">
+  <!ENTITY funcname    "PS_shading">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2004</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&funcname;</refname>
+
+    <refpurpose>Create shading</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <para>#include &lt;pslib.h&gt;</para>
+		<para>int &funcname;(PSDoc *psdoc, const char *shtype, float x0, float y0, float x1, float y1, float c1, float c2, float c3, float c4, const char *optlist)</para>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>This function creates a shading which can be used by
+		 <function>PS_shfill(3)</function> or
+		 <function>PS_shading_pattern(3)</function>. The type of shading
+		 can be either `radial' or `axial'. Each shading starts with
+		 the current fill color and ends with the given color values
+		 passed in the parameters <parameter>c1</parameter> to
+		 <parameter>c4</parameter> (see <function>PS_setcolor(3)</function>
+		 for their meaning). The coordinates <parameter>x0</parameter>,
+		 <parameter>y0</parameter>, <parameter>x1</parameter>,
+		 <parameter>y1</parameter> are the start and end point of the shading.
+		 If the shading is of type `radial' the option list must also contain
+		 the parameters r0 and r1 with the radius of the start and end
+		 circle.</para>
+		<para>The color of the shading can be in any color space except for
+		 	`pattern'.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>RETURN VALUE</title>
+    <para>Returns the identifier of the shading or zero in case of an error.
+		      The identifier is a positiv number.</para>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>PS_shfill(3), PS_shading_pattern(3)</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &dhemail;.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

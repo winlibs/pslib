@@ -1,0 +1,28 @@
+Installation of pslib on win32 systems.
+---------------------------------------
+
+Since version 0.4.0 of pslib it can be quite easily compiled for
+win32 systems in a mingw environment.
+
+Requirements
+------------
+You will need a recent version of MinGW, msys, and ActivePerl.
+You also need libpng, libzip, libungif, libtiff and libjpeg compiled
+for wind32, which are provided by the sourceforge project GnuWin32.
+
+Installation
+------------
+1. Install MinGW and msys
+2. Install ActivePerl
+3. Grab the most recent source tar archive of pslib and untar it
+4. Change into the untared directory and invoke
+
+   export INTLTOOL_PERL=<path to perl>
+   ./configure
+
+   if configure doesn't detect the graphics libraries then specify
+	 their location with --with-png, -with-gif, --with-jpeg, --with-tiff.
+
+5. Run make; make install
+
+

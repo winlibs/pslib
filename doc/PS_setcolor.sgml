@@ -1,0 +1,129 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>UWE</firstname>">
+  <!ENTITY dhsurname   "<surname>STEINMANN</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>April 28, 2003</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>3</manvolnum>">
+  <!ENTITY dhemail     "<email>uwe@steinmann.cx</email>">
+  <!ENTITY dhusername  "Uwe Steinmann">
+  <!ENTITY dhucpackage "<refentrytitle>PS_SETCOLOR</refentrytitle>">
+  <!ENTITY funcname    "PS_setcolor">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2003</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&funcname;</refname>
+
+    <refpurpose>Sets current color</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <para>#include &lt;pslib.h&gt;</para>
+		<para>void &funcname;(PSDoc *psdoc, const char *type, const char *colorspace, float c1, float c2, float c3, float c4)</para>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>Sets the color for drawing, filling, or both. The colorspace should
+		  be one of 'gray', 'spot', 'rgb, 'cmyk', or 'pattern'. Depending on the
+			colorspace either
+			only the first, the first two, the first three all or remaining
+			parameters will be
+			used. If <parameter>colorspace</parameter> is 'pattern' then
+			<parameter>c1</parameter> must contain the pattern id as returned
+			by <function>PS_begin_pattern(3)</function>. If
+			<parameter>colorspace</parameter> is 'spot' then the
+			<parameter>c1</parameter> must contain the spot color id as returned by
+			<function>PS_makespotcolor(3)</function> and the
+			<parameter>c2</parameter> must contain the tint value for the color.
+			</para>
+		<para>The parameter <parameter>type</parameter> can be 'fillstroke', 'fill',
+		  or 'stroke'.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>The second parameter is currently not in any case evaluated.
+		  The color is
+		  always set for filling and drawing just as if 'both' where passed.
+			If you want to set the color to define a spot color from it, you
+			will have to pass 'both' or 'fill', because
+			<function>PS_makespotcolor(3)</function> utilizes the current fill
+			color.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>PS_begin_pattern(3)</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &dhemail;.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

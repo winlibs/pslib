@@ -1,0 +1,56 @@
+pslib
+=====
+C-libaray for generating PostScript files.
+
+Copyright (c) 2001-2004 Uwe Steinmann <steinm@debian.org>
+
+The pslib distribution is available from:
+http://pslib.sourceforge.net
+
+THIS IS PUBLIC SOFTWARE RELEASED UNDER THE GPL
+see http://www.gnu.org for details on this license.
+
+
+Overview
+========
+pslib is a C-library for generating PostScript files with little
+effort. It offers an easy way of generating PostScript text 
+and graphics. Its text function are very sophisticated and support
+kerning, ligatures and some basic formatting. Hypertext functions
+are supported through pdfmarks which makes pslib in combination
+with ghostscript a viable alternative for libraries creating
+PDF.
+
+
+Supported Programming Environments
+==================================
+There is already a PHP extension for pslib in pecl. Perl support
+is in its early stage and is currently only available in the CVS.
+Python and Tcl bindings are also available.
+
+Mailing-List
+============
+pslib is a work in progress. You can ask questions or contribute through
+pslib-list@lists.sourceforge.net
+
+
+External libraries used in pslib
+=================================
+pslib needs libpng for reading PNG images.
+
+Submitting Bug Reports
+======================
+Report bugs you have found at http://sourceforge.net/projects/pslib
+
+
+TODO
+====
+Quite a lot but pslib is already very useable.
+
+Licensing and Copyleft
+======================
+THIS IS GPL/LGPL SOFTWARE!
+
+Read the GPL license at http://www.fsf.org
+
+

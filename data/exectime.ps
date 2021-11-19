@@ -1,0 +1,30 @@
+% exectime.ps
+% This file contains a page hook to calculate the execution time of a page
+% Attention: PslibPageEndHook and PslibPageBeginHook are encapsulated 
+% save and restore. 'save' leaves the current VM on the stack which is
+% restored by 'restore' If your PslibPageBeginHook wants to leave additional
+% data on the stack for PslibPageEndHook to pick up, you will have to exch
+% it with the VM on the stack. The same is true for PslibPageEndHook. Since
+% pslib calls 'save' and puts the page number on the stack, the data from
+% PslibPageBeginHook is burried under these two elements.
+%
+% The PslibPageBeginHook command expects to find the following on the stack.
+% page number
+% ury (upper right corner of page, y coordinate)
+% urx (upper right corner of page, x coordinate)
+% lly (lower left corner of page, y coordinate)
+% llx (lower left corner of page, x coordinate)
+%
+% PslibPageEndHook expects only the page number on the stack
+%
+% Use 'B' to define the command
+/PslibPageBeginHook{
+  pop pop pop pop pop realtime exch
+} B
+/PslibPageEndHook{
+  pop exch
+  /Helvetica findfont 8 scalefont setfont
+	10 10 moveto (This page needed ) show
+  realtime exch sub 10 (aaaaaaaa) cvrs show
+	( ms for execution) show
+} B

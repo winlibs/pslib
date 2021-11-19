@@ -1,0 +1,16 @@
+% draft.ps
+% This file contains a page hook to draw the word 'draft' on each page
+% The PslibPageStartHook command expects to find the following on the stack.
+% page number
+% ury (upper right corner of page, y coordinate)
+% urx (upper right corner of page, x coordinate)
+% lly (lower left corner of page, y coordinate)
+% llx (lower left corner of page, x coordinate)
+% Use 'B' to define the command
+/PslibPageBeginHook{
+  /pagenumber exch def /ury exch def /urx exch def /lly exch def /llx exch def
+	0.8 setgray
+  /Helvetica findfont 144 scalefont setfont
+	45 rotate 350 60 moveto
+	(Draft) show
+} B

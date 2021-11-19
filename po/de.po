@@ -1,0 +1,1339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-31 22:21+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Uwe Steinmann <uwe@steinmann.cx>\n"
+"Language-Team: DE <uwe@steinmann.cx>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/pslib.c:97 ../src/pslib.c:191 ../src/pslib.c:215 ../src/pslib.c:233
+#: ../src/pslib.c:251 ../src/pslib.c:269 ../src/pslib.c:546 ../src/pslib.c:728
+#: ../src/pslib.c:1393 ../src/pslib.c:1523 ../src/pslib.c:1653
+#: ../src/pslib.c:1732 ../src/pslib.c:1786 ../src/pslib.c:1934
+#: ../src/pslib.c:1954 ../src/pslib.c:1975 ../src/pslib.c:1996
+#: ../src/pslib.c:2061 ../src/pslib.c:2186 ../src/pslib.c:2393
+#: ../src/pslib.c:2447 ../src/pslib.c:2911 ../src/pslib.c:2946
+#: ../src/pslib.c:2967 ../src/pslib.c:2986 ../src/pslib.c:3006
+#: ../src/pslib.c:3023 ../src/pslib.c:3044 ../src/pslib.c:3064
+#: ../src/pslib.c:3084 ../src/pslib.c:3105 ../src/pslib.c:3130
+#: ../src/pslib.c:3157 ../src/pslib.c:3173 ../src/pslib.c:3194
+#: ../src/pslib.c:3216 ../src/pslib.c:3243 ../src/pslib.c:3272
+#: ../src/pslib.c:3301 ../src/pslib.c:3330 ../src/pslib.c:3349
+#: ../src/pslib.c:3366 ../src/pslib.c:3384 ../src/pslib.c:3401
+#: ../src/pslib.c:3421 ../src/pslib.c:3443 ../src/pslib.c:3462
+#: ../src/pslib.c:3482 ../src/pslib.c:3506 ../src/pslib.c:3533
+#: ../src/pslib.c:3559 ../src/pslib.c:3599 ../src/pslib.c:3658
+#: ../src/pslib.c:3676 ../src/pslib.c:3694 ../src/pslib.c:3711
+#: ../src/pslib.c:3728 ../src/pslib.c:3747 ../src/pslib.c:3917
+#: ../src/pslib.c:3971 ../src/pslib.c:4234 ../src/pslib.c:4369
+#: ../src/pslib.c:4406 ../src/pslib.c:4424 ../src/pslib.c:4581
+#: ../src/pslib.c:5244 ../src/pslib.c:5495 ../src/pslib.c:5520
+#: ../src/pslib.c:5576 ../src/pslib.c:5602 ../src/pslib.c:5666
+#: ../src/pslib.c:5692 ../src/pslib.c:5741 ../src/pslib.c:5859
+#: ../src/pslib.c:5949 ../src/pslib.c:5976 ../src/pslib.c:6020
+#: ../src/pslib.c:6043 ../src/pslib.c:6084 ../src/pslib.c:6125
+#: ../src/pslib.c:6145 ../src/pslib.c:6170 ../src/pslib.c:6190
+#: ../src/pslib.c:6226 ../src/pslib.c:6246 ../src/pslib.c:6277
+#: ../src/pslib.c:6313 ../src/pslib.c:6336 ../src/pslib.c:6392
+#: ../src/pslib.c:6475 ../src/pslib.c:6508 ../src/pslib.c:6535
+#: ../src/pslib.c:6584 ../src/pslib.c:6627 ../src/pslib.c:6649
+#: ../src/pslib.c:6697 ../src/pslib.c:6744
+msgid "PSDoc is null."
+msgstr "PSDoc ist NULL"
+
+#: ../src/pslib.c:101 ../src/pslib.c:4378
+msgid "PSFont is null."
+msgstr "PSFont ist NULL"
+
+#: ../src/pslib.c:105
+msgid "This PSFont was created for a different document."
+msgstr "Diese Zeichensatz wurde für ein anderes Dokument erzeugt."
+
+#: ../src/pslib.c:195 ../src/pslib.c:5266
+msgid "PSImage is null."
+msgstr "PSImage ist NULL"
+
+#: ../src/pslib.c:219 ../src/pslib.c:1163 ../src/pslib.c:3816
+msgid "PSPattern is null."
+msgstr "PSPattern ist NULL"
+
+#: ../src/pslib.c:237
+msgid "PSSpotColor is null."
+msgstr "PSSpotColor ist NULL"
+
+#: ../src/pslib.c:255 ../src/pslib.c:3487 ../src/pslib.c:5701
+msgid "PSShading is null."
+msgstr "PSShading ist NULL"
+
+#: ../src/pslib.c:273 ../src/pslib.c:3604
+msgid "PSGState is null."
+msgstr "PSGState ist NULL"
+
+#. }}}
+#. _ps_register_font|image|pattern() {{{
+#. * Register font, image with PS document
+#. * Returns the font, image id which is the index within the
+#. * internal font, image
+#. * array + 1. Returns 0 in case of an error.
+#.
+#: ../src/pslib.c:300
+msgid "Could not enlarge memory for internal resource array."
+msgstr "Konnte Speicher für internes Ressources-Array nicht vergrößern."
+
+#: ../src/pslib.c:315 ../src/pslib.c:322
+msgid "Trying to unregister a resource which does not exist."
+msgstr "Versuch eine Ressource zu entfernen, die nicht existiert."
+
+#: ../src/pslib.c:361
+msgid "Trying to get a resource which does not exist."
+msgstr "Versuch auf eine Ressource zuzugreifen, die nicht existiert."
+
+#: ../src/pslib.c:446 ../src/pslib.c:1187 ../src/pslib.c:1219
+#: ../src/pslib.c:3826
+msgid "Could not find spot color."
+msgstr "Konnte Schmuckfarben-Ressource nicht finden."
+
+#: ../src/pslib.c:550
+#, c-format
+msgid "%s must be called within 'object', or 'document' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'object' oder 'document' aufgerufen "
+"werden."
+
+#: ../src/pslib.c:555
+msgid "Empty key or value in PS_set_info()."
+msgstr "Leerer Schlüssel für Wert in PS_set_info()."
+
+#: ../src/pslib.c:559
+msgid ""
+"Calling PS_set_info() has no effect because PostScript header is already "
+"written."
+msgstr ""
+"Der Aufruf von PS_set_info() hat keine Wirkung, weil der PostScript-Kopf "
+"schon geschrieben wurde."
+
+#: ../src/pslib.c:606
+msgid "Could not allocate memory for new PS document."
+msgstr "Konnte Speicher für PS-Dokument nicht allozieren."
+
+#: ../src/pslib.c:634
+msgid "Allocate memory for internal Font list of document."
+msgstr "Alloziere Speicher für interne Zeichensatzliste."
+
+#: ../src/pslib.c:641
+msgid "Allocate memory for internal Image list of document."
+msgstr "Alloziere Speicher für interne Bilderliste."
+
+#: ../src/pslib.c:648
+msgid "Allocate memory for internal Pattern list of document."
+msgstr "Alloziere Speicher für interne Musterliste."
+
+#: ../src/pslib.c:655
+msgid "Allocate memory for internal spot color list of document."
+msgstr "Alloziere Speicher für interne Schmuckfarbenliste."
+
+#: ../src/pslib.c:662
+msgid "Allocate memory for internal Shading list of document."
+msgstr "Alloziere Speicher für interne Liste der Farbverläufe."
+
+#: ../src/pslib.c:669
+msgid "Allocate memory for internal graphic state list of document."
+msgstr "Alloziere Speicher für interne Liste der Graphik-Kontexts."
+
+#: ../src/pslib.c:740
+msgid "Allocate memory for PS header field 'CreationTime'."
+msgstr "Alloziere Speicher für das PS-Header-Feld 'CreationTime'."
+
+#: ../src/pslib.c:749
+msgid "Cannot allocate memory for PS header field 'CreationTime'."
+msgstr ""
+"Konnte Speicher für das PS-Header-Feld 'CreationTime' nicht allozieren."
+
+#: ../src/pslib.c:1128
+msgid "Setting color inside a pattern of PaintType 2 is not allowed."
+msgstr ""
+"Das Setzen der Farbe innerhalb eines Musters von PaintType2 ist nicht "
+"erlaubt."
+
+#: ../src/pslib.c:1210
+msgid ""
+"Current stroke/fill color is not RGB, CMYK, Gray or spot while setting a "
+"pattern of paint type 1."
+msgstr ""
+"Aktuelle Füll/Zeichenfarbe ist weder RGB, CMYK, Gray noch Schmuckfarbe "
+"während ein Muster vom Typ 1 gesetzt wird."
+
+#: ../src/pslib.c:1254
+msgid "File pointer is NULL. Use PS_open_mem() to create file in memory."
+msgstr ""
+"Dateizeiger ist NULL. Nutzen Sie PS_open_mem(), um die Datei im Speicher zu "
+"erzeugen."
+
+#: ../src/pslib.c:1281
+#, c-format
+msgid "Could not open file '%s'."
+msgstr "Konnte Datei '%s' nicht öffnen."
+
+#: ../src/pslib.c:1353
+msgid "Ending last page of document."
+msgstr "Beende letzte Seite des Dokuments."
+
+#: ../src/pslib.c:1357 ../src/pslib.c:2023 ../src/pslib.c:5534
+#: ../src/pslib.c:5621 ../src/pslib.c:5874
+#, c-format
+msgid "%s must be called within 'document' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'document' aufgerufen werden."
+
+#: ../src/pslib.c:1537
+msgid "Invalid resource"
+msgstr "Ungültige Ressource"
+
+#: ../src/pslib.c:1547
+msgid "RightMarginKerning cannot be set without setting a font before."
+msgstr ""
+"RightMarginKerning kann nicht gesetzt werden, ohne vorher einen Zeichensatz "
+"zu setzen."
+
+#: ../src/pslib.c:1556
+msgid "LeftMarginKerning cannot be set without setting a font before."
+msgstr ""
+"LeftMarginKerning kann nicht gesetzt werden, ohne vorher einen Zeichensatz "
+"zu setzen."
+
+#: ../src/pslib.c:1564
+#, c-format
+msgid "Resource '%s' in category '%s' could not be registered."
+msgstr "Ressource '%s' in Kategorie '%s' konnte nicht registriert werden."
+
+#: ../src/pslib.c:1570
+#, c-format
+msgid "Resource in category '%s' could not be registered."
+msgstr "Ressource in Kategorie '%s' konnte nicht registriert werden."
+
+#: ../src/pslib.c:1603
+#, c-format
+msgid "Could not load hyphenation table '%s', turning hyphenation off."
+msgstr ""
+"Konnte Silbentrennungs-Tabelle '%s' nicht laden, schalte Silbentrennung aus."
+
+#: ../src/pslib.c:1614
+#, c-format
+msgid "Input encoding '%s' could not be set."
+msgstr "Eingabekodierung '%s' konnte nicht gesetzt werden."
+
+#: ../src/pslib.c:1658
+msgid "Do not know which parameter to get since the passed name is NULL."
+msgstr "Welcher Parameter soll geliefert werden? Der Name ist NULL."
+
+#: ../src/pslib.c:1671 ../src/pslib.c:1684 ../src/pslib.c:1799
+#: ../src/pslib.c:1824 ../src/pslib.c:1837 ../src/pslib.c:1850
+#: ../src/pslib.c:1863 ../src/pslib.c:1876 ../src/pslib.c:1889
+#: ../src/pslib.c:2199
+msgid "No font set."
+msgstr "Kein Zeichensatz gesetzt."
+
+#: ../src/pslib.c:1761
+msgid "Could not allocate memory for new node in value list."
+msgstr ""
+"Konnte den Speicher für einen neuen Eintrag in der Werte-Liste nicht "
+"allozieren."
+
+#: ../src/pslib.c:1782
+msgid "Do not know which value to get since the passed name is NULL."
+msgstr "Welcher Wert soll geliefert werden? Der Name ist NULL."
+
+#: ../src/pslib.c:2065 ../src/pslib.c:3353 ../src/pslib.c:5255
+#: ../src/pslib.c:6230 ../src/pslib.c:6250 ../src/pslib.c:6281
+#: ../src/pslib.c:6317 ../src/pslib.c:6340 ../src/pslib.c:6396
+#: ../src/pslib.c:6479 ../src/pslib.c:6512
+#, c-format
+msgid "%s must be called within 'page' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'page' aufgerufen werden."
+
+#: ../src/pslib.c:2069
+msgid "PS_save() has been called more often than PS_restore()."
+msgstr "PS_save() wurde häufiger aufgerufen als PS_restore()."
+
+#: ../src/pslib.c:2190 ../src/pslib.c:2397 ../src/pslib.c:2452
+#: ../src/pslib.c:2950 ../src/pslib.c:2990 ../src/pslib.c:3027
+#: ../src/pslib.c:3048 ../src/pslib.c:3068 ../src/pslib.c:3088
+#: ../src/pslib.c:3109 ../src/pslib.c:3134 ../src/pslib.c:3161
+#: ../src/pslib.c:3177 ../src/pslib.c:3198 ../src/pslib.c:3510
+#: ../src/pslib.c:3537 ../src/pslib.c:3662 ../src/pslib.c:3680
+#: ../src/pslib.c:3698 ../src/pslib.c:3715 ../src/pslib.c:3732
+#: ../src/pslib.c:4373
+#, c-format
+msgid "%s must be called within 'page', 'pattern', or 'template' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'page', 'pattern' oder 'template' "
+"aufgerufen werden."
+
+#: ../src/pslib.c:2194
+msgid "Text to display is NULL."
+msgstr "Text der angezeigt werden soll ist NULL."
+
+#: ../src/pslib.c:2232
+msgid "Allocate temporay space for output string."
+msgstr "Alloziere temporären Speicher für Ausgabe text."
+
+#: ../src/pslib.c:2271 ../src/pslib.c:4301
+#, c-format
+msgid "Font '%s' has no ligature '%s', disolving it."
+msgstr "Zeichensatz '%s' hat keine Ligatur '%s', löse sie auf."
+
+#: ../src/pslib.c:2274 ../src/pslib.c:4304
+#, c-format
+msgid "Font encoding vector of font '%s' has no ligature '%s', disolving it."
+msgstr ""
+"Der Zeichensatzkodierungsvektor des Zeichensatzes '%s' hat keine Ligatur "
+"'%s', löse sie auf."
+
+#. glyph not found
+#: ../src/pslib.c:2309 ../src/pslib.c:4319
+#, c-format
+msgid "Glyph '%s' not found in metric file."
+msgstr "Zeichen '%s' nicht in Metrikdatei gefunden."
+
+#: ../src/pslib.c:2313 ../src/pslib.c:4323
+#, c-format
+msgid "Character %d not in input encoding vector."
+msgstr "Zeichen %d nicht im Input-Encoding-Vektor."
+
+#: ../src/pslib.c:2460
+msgid "Must specify a horizontal mode for PS_show_boxed()."
+msgstr "Horizontal-Modus für PS_show_boxed() ist nicht gesetzt."
+
+#: ../src/pslib.c:2475
+#, c-format
+msgid "There is no such horizontal mode like '%s'. Using 'left' instead."
+msgstr "Es gibt keinen Horizontal-Modus '%s'. Verwende 'left' stattdessen."
+
+#: ../src/pslib.c:2484
+msgid "Cannot output text before setting a font."
+msgstr "Text kann nicht ausgeben werden, bevor ein Zeichensatz gesetzt ist."
+
+#: ../src/pslib.c:2489
+msgid "No font metrics loaded."
+msgstr "Keine Zeichensatz-Metriken geladen."
+
+#: ../src/pslib.c:2493
+msgid "Could not find font resource."
+msgstr "Konnte Zeichensatz-Ressource nicht finden."
+
+#: ../src/pslib.c:2500
+msgid "No hyphenation table set, turning hyphenation off."
+msgstr "Keine Silbertrennungs-Tabelle gesetzt, schalte Silbentrennung aus."
+
+#: ../src/pslib.c:2548
+#, c-format
+msgid "Unknown line number mode '%s'. Turning line numbering off."
+msgstr ""
+"Unbekannter Zeilennummerierungsmodus '%'. Zeilennummerierung wird "
+"ausgeschaltet."
+
+#: ../src/pslib.c:2679
+msgid "Could not allocated memory for hyphenated word."
+msgstr "Konnte Speicher für zu trennendes Wort nicht allozieren."
+
+#. buf1 will be the partial hyphenated word including all not
+#. * alpha chars at the beginning of the word. This string will
+#. * be used to calculate the len of the line.
+#.
+#: ../src/pslib.c:2718 ../src/pslib.c:6447
+msgid "Could not allocate memory for hyphenation buffer."
+msgstr "Konnte Speicher für Silbentrennungs-Puffer nicht allozieren."
+
+#: ../src/pslib.c:2762 ../src/pslib.c:2774
+msgid "Could not allocate memory for line buffer."
+msgstr "Konnte Speicher für Zeilen-Puffer nicht allozieren."
+
+#: ../src/pslib.c:2915 ../src/pslib.c:3220 ../src/pslib.c:3247
+#, c-format
+msgid ""
+"%s must be called within 'path', 'template', 'pattern', 'glyph' or 'page' "
+"scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'path', 'template', 'pattern', "
+"'glyph' oder 'page' aufgerufen werden."
+
+#: ../src/pslib.c:2971 ../src/pslib.c:3334 ../src/pslib.c:3370
+#: ../src/pslib.c:3388 ../src/pslib.c:3405 ../src/pslib.c:3425
+#: ../src/pslib.c:3447 ../src/pslib.c:3466
+#, c-format
+msgid "%s must be called within 'path' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'path' aufgerufen werden."
+
+#: ../src/pslib.c:3010
+#, c-format
+msgid ""
+"%s must be called within 'page', 'template', 'glyph', or 'pattern' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'path', 'template', 'glyph' oder "
+"'pattern' aufgerufen werden."
+
+#: ../src/pslib.c:3031
+msgid "Type of linecap is out of range."
+msgstr "Typ der Linienenden ist außerhalb des Bereichs."
+
+#: ../src/pslib.c:3052
+msgid "Type of linejoin is out of range."
+msgstr "Typ der Linienverbindung ist außerhalb des Bereichs."
+
+#: ../src/pslib.c:3072
+msgid "Miter limit is less than 1."
+msgstr "Miter limit ist kleiner als 1."
+
+#: ../src/pslib.c:3092
+msgid "Flat value is less than 0.2 or bigger than 100.0"
+msgstr "Flat-Wert ist kleiner als 0.2 oder größer all 100.0."
+
+#: ../src/pslib.c:3138
+msgid "Array for dashes is NULL."
+msgstr "Array für Schrichellinie ist NULL>"
+
+#: ../src/pslib.c:3181
+msgid "Mode for overprint must be either 0 or 1."
+msgstr "Modus für Überdrucken muss entweder 0 oder 1 sein."
+
+#: ../src/pslib.c:3202
+msgid "Smoothness value must be between 0 and 1."
+msgstr "Glättung muss zwischen 0 und 1 liegen."
+
+#: ../src/pslib.c:3251
+msgid "Radius for circle is less than 0.0."
+msgstr "Radius für Kreis ist kleiner als 0.0."
+
+#: ../src/pslib.c:3276 ../src/pslib.c:3305
+#, c-format
+msgid "%s must be called within 'path', 'template', 'pattern' or 'page' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'path', 'template', 'pattern' oder "
+"'page' aufgerufen werden."
+
+#: ../src/pslib.c:3280 ../src/pslib.c:3309
+msgid "Radius for arc is less than 0.0."
+msgstr "Radius für Kreisbogen ist kleiner als 0.0."
+
+#: ../src/pslib.c:3491
+#, c-format
+msgid "%s must be called within 'page', 'pattern' or 'template' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'page', 'pattern' oder 'template' "
+"aufgerufen werden."
+
+#: ../src/pslib.c:3514
+msgid "No more graphic states available."
+msgstr "Kein weiterer Grafik-Context verfügbar."
+
+#: ../src/pslib.c:3541
+msgid "PS_restore() has been called more often than PS_save()."
+msgstr "PS_restore() wurde häufiger aufgerufen als PS_save()."
+
+#: ../src/pslib.c:3563
+msgid "Option list may not be empty."
+msgstr "Optionenliste darf nicht leer sein."
+
+#: ../src/pslib.c:3568 ../src/pslib.c:4205 ../src/pslib.c:5772
+msgid "Error while parsing option list."
+msgstr "Fehler beim Auswerten der Optionenliste."
+
+#: ../src/pslib.c:3572
+msgid "Allocate memory for graphic state."
+msgstr "Alloziere Speicher für Graphikstatus."
+
+#: ../src/pslib.c:3573
+msgid "Could not allocate memory for graphic state."
+msgstr "Konnte Speicher für Graphikstatus nicht allozieren."
+
+#: ../src/pslib.c:3579
+msgid "Could not register gstate."
+msgstr "Konnte gstate nicht registrieren."
+
+#: ../src/pslib.c:3645
+msgid "Graphic state contains unknown option."
+msgstr "Graphikstatus beinhaltet unbekannte Option."
+
+#: ../src/pslib.c:3752 ../src/pslib.c:3922 ../src/pslib.c:3988
+#, c-format
+msgid ""
+"%s must be called within 'prolog', 'document', 'page', 'pattern', or "
+"'template' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'prolog', 'document', 'page', "
+"'pattern' oder 'template' aufgerufen werden."
+
+#: ../src/pslib.c:3756
+msgid "Missing parameter type in PS_setcolor()."
+msgstr "Fehlender Parameter 'type' in PS_setcolor()."
+
+#: ../src/pslib.c:3760
+msgid "Type in PS_setcolor() is none of 'fill', 'stroke' or 'fillstroke'."
+msgstr "Typ in PS_setcolor() ist weder 'fill' noch 'stroke' noch 'fillstroke'."
+
+#: ../src/pslib.c:3765
+msgid "Missing paramter colorspace in PS_setcolor()."
+msgstr "Fehlender Parameter colorspace in PS_setcolor()."
+
+#: ../src/pslib.c:3771
+msgid "Gray value out of range 0-1."
+msgstr "Grau-Wert ist außerhalb des Bereichs 0-1."
+
+#: ../src/pslib.c:3779
+msgid "Red value out of range 0-1."
+msgstr "Rot-Wert ist außerhalb des Bereichs 0-1."
+
+#: ../src/pslib.c:3783
+msgid "Green value out of range 0-1."
+msgstr "Grün-Wert ist außerhalb des Bereichs 0-1.."
+
+#: ../src/pslib.c:3787
+msgid "Blue value out of range 0-1."
+msgstr "Blau-Wert ist außerhalb des Bereichs 0-1.."
+
+#: ../src/pslib.c:3795
+msgid "Cyan value out of range 0-1."
+msgstr "Cyan-Wert ist außerhalb des Bereichs 0-1.."
+
+#: ../src/pslib.c:3799
+msgid "Magenta value out of range 0-1."
+msgstr "Magenta-Wert ist außerhalb des Bereichs 0-1.."
+
+#: ../src/pslib.c:3803
+msgid "Yellow value out of range 0-1."
+msgstr "Gelb-Wert ist außerhalb des Bereichs 0-1."
+
+#: ../src/pslib.c:3807
+msgid "Black value out of range 0-1."
+msgstr "Schwarz-Wert ist außerhalb des Bereichs 0-1."
+
+#: ../src/pslib.c:3830
+msgid "Tint value out of range 0-1."
+msgstr "Deckungswert ist außerhalb des Bereichs 0-1."
+
+#: ../src/pslib.c:3835
+msgid ""
+"Colorspace in PS_setcolor() is not in 'gray', 'rgb', 'cmyk', 'spot', or "
+"'pattern'."
+msgstr ""
+"Farbraum in PS_setcolor() ist weder 'gray', 'rgb', 'cmyk', 'spot' noch "
+"'pattern'"
+
+#: ../src/pslib.c:3933
+msgid "Cannot make a spot color from a spot color or pattern."
+msgstr ""
+"Kann eine Schmuckfarbe nicht aus einer anderen oder einem Muster erstellen."
+
+#: ../src/pslib.c:3937
+msgid "Allocate memory for spot color."
+msgstr "Alloziere Speicher für Schmuckfarbe."
+
+#: ../src/pslib.c:3938
+msgid "Could not allocate memory for spot color."
+msgstr "Konnte Speicher für Schmuckfarbe nicht allozieren."
+
+#: ../src/pslib.c:3943
+msgid "Could not register spotcolor."
+msgstr "Konnte spotcolor nicht registrieren."
+
+#: ../src/pslib.c:3984
+#, c-format
+msgid ""
+"Calling %s between pages is likely to cause problems when viewing the "
+"document. Call in within a page or in the prolog."
+msgstr ""
+"Der Aufruf von %s zwischen Seiten verursacht möglicherweise Probleme beim "
+"späteren Betrachten des Dokuments. Rufen Sie es innerhalb einer Seite oder "
+"im Prolog auf."
+
+#: ../src/pslib.c:3993
+msgid "No font name give to PS_findfont()."
+msgstr "Kein Zeichensatzname an PS_findfont() übergeben."
+
+#: ../src/pslib.c:3997 ../src/pslib.c:5878
+msgid "Allocate memory for font."
+msgstr "Alloziere Speicher für Zeichensatz."
+
+#: ../src/pslib.c:3998 ../src/pslib.c:5879
+msgid "Could not allocate memory for font."
+msgstr "Konnte Speicher für Zeichensatz nicht allozieren."
+
+#: ../src/pslib.c:4007 ../src/pslib.c:4079
+msgid "Could not allocate memory for afm filename."
+msgstr "Konnte Speicher für AFM-Dateiname nicht allozieren."
+
+#: ../src/pslib.c:4019
+#, c-format
+msgid "Font metrics could not be loaded (%s)."
+msgstr "Zeichensatz-Metriken konnten nicht geladen werden (%s)."
+
+#: ../src/pslib.c:4041
+#, c-format
+msgid "Encoding file could not be loaded (%s)."
+msgstr "Encoding-Datei konnten nicht geladen werden (%s)."
+
+#: ../src/pslib.c:4085 ../src/pslib.c:4089
+#, c-format
+msgid "Could not open protusion file: %s"
+msgstr "Konnte Datei für den Zeilenüberhang von Zeichen nicht öffnen: %s"
+
+#: ../src/pslib.c:4100
+msgid "Could not allocate memory for pfb filename."
+msgstr "Konnte Speicher für PFB-Dateiname nicht allozieren."
+
+#: ../src/pslib.c:4115
+msgid "Could not allocate memory for content of font outline file."
+msgstr "Konnte Speicher für Inhalt der Font-Outline Datei allozieren."
+
+#: ../src/pslib.c:4178
+#, c-format
+msgid "Outline of font '%s' does not start with 0x80 0x01"
+msgstr "Datei des Zeichensatzes '%s' beginnt nicht mit 0x80 0x01"
+
+#: ../src/pslib.c:4182
+#, c-format
+msgid "Problems while reading font outline for '%s'."
+msgstr "Probleme bei lesen des Zeichensatzes '%s'."
+
+#: ../src/pslib.c:4186
+#, c-format
+msgid "Font outline could not be loaded for '%s'."
+msgstr "Zeichensatz '%s' konnte nicht geladen werden."
+
+#: ../src/pslib.c:4210
+msgid ""
+"Value of option list element 'embedding' could not be read, using default."
+msgstr ""
+"Wert des Optionenlist-Elements 'embedding' konnte nicht gelesen werden, "
+"benutze Voreinstellung."
+
+#: ../src/pslib.c:4249 ../src/pslib.c:6547 ../src/pslib.c:6596
+#: ../src/pslib.c:6661 ../src/pslib.c:6709
+msgid "No font available."
+msgstr "Kein Zeichensatz verfügbar."
+
+#: ../src/pslib.c:4254 ../src/pslib.c:6552 ../src/pslib.c:6666
+msgid "No font metrics available. Cannot calculate width of string."
+msgstr ""
+"Keine Zeichensatz-Metriken vorhanden. Breite des Textes konnte nicht "
+"berechnet werden."
+
+#: ../src/pslib.c:4439 ../src/pslib.c:4596
+#, c-format
+msgid ""
+"Calling %s between pages or on pages for reusable images may cause problems "
+"when viewing the document. Call it before the first page."
+msgstr ""
+"Der Aufruf von %s zwischen oder auf Seiten verursacht möglicherweise "
+"Probleme beim späteren Betrachten des Dokuments. Rufen Sie es vor der ersten "
+"Seite auf."
+
+#: ../src/pslib.c:4443 ../src/pslib.c:4448 ../src/pslib.c:4600
+#: ../src/pslib.c:4605 ../src/pslib.c:5696 ../src/pslib.c:5745
+#: ../src/pslib.c:6149 ../src/pslib.c:6174 ../src/pslib.c:6194
+#, c-format
+msgid "%s must be called within 'document' or 'page' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'document' oder 'page' aufgerufen "
+"werden."
+
+#: ../src/pslib.c:4453 ../src/pslib.c:4717 ../src/pslib.c:4846
+#: ../src/pslib.c:4902 ../src/pslib.c:5010 ../src/pslib.c:5072
+#: ../src/pslib.c:5132
+msgid "Allocate memory for image."
+msgstr "Alloziere Speicher für Bild."
+
+#: ../src/pslib.c:4454 ../src/pslib.c:4718 ../src/pslib.c:4847
+#: ../src/pslib.c:4903 ../src/pslib.c:5011 ../src/pslib.c:5073
+#: ../src/pslib.c:5133
+msgid "Could not allocate memory for image."
+msgstr "Konnte Speicher für Bild nicht allozieren."
+
+#.
+#. fprintf(stderr, "%dx%d pixel\n", psimage->width, psimage->height);
+#. fprintf(stderr, "%d channels\n", psimage->components);
+#. fprintf(stderr, "%d bits per color\n", psimage->bpc);
+#. fprintf(stderr, "%d bytes per row\n", row_bytes);
+#.
+#: ../src/pslib.c:4459 ../src/pslib.c:4786 ../src/pslib.c:4876
+#: ../src/pslib.c:4965 ../src/pslib.c:5039 ../src/pslib.c:5140
+msgid "Allocate memory for image data."
+msgstr "Alloziere Speicher für Bild-Daten."
+
+#: ../src/pslib.c:4460 ../src/pslib.c:4787 ../src/pslib.c:4877
+#: ../src/pslib.c:4966 ../src/pslib.c:5040 ../src/pslib.c:5141
+msgid "Could not allocate memory for image data."
+msgstr "Konnte Speicher für Bild-Daten nicht allozieren."
+
+#: ../src/pslib.c:4495
+msgid "Image has unknown number of components per pixel."
+msgstr "Bild hat unbekannt Anzahl von Komponenten pro pixel."
+
+#: ../src/pslib.c:4511 ../src/pslib.c:5177
+msgid "Could not register image."
+msgstr "Konnte image nicht registrieren."
+
+#: ../src/pslib.c:4544 ../src/pslib.c:5210 ../src/pslib.c:5393
+#: ../src/pslib.c:5424
+msgid "Allocate memory for temporary image data."
+msgstr "Alloziere Speicher für temporäre Bild-Daten."
+
+#: ../src/pslib.c:4611
+msgid "Filename of images is NULL."
+msgstr "Dateinames des Bildes ist NULL."
+
+#: ../src/pslib.c:4616
+#, c-format
+msgid "Could not open image file %s."
+msgstr "Konnte Bild-Datei %s nicht öffnen."
+
+#: ../src/pslib.c:4621
+msgid "Type of image is NULL."
+msgstr "Typ des Bildes ist NULL."
+
+#: ../src/pslib.c:4641
+msgid "Could not create png structure."
+msgstr "Konnte png-Struktur nicht erzeugen."
+
+#: ../src/pslib.c:4649
+msgid "Could not create png info structure."
+msgstr "Konnte png-Info-Struktur nicht erzeugen."
+
+#. Free all of the memory associated with the png_ptr and info_ptr
+#: ../src/pslib.c:4661
+msgid "Could not set error handler for libpng."
+msgstr "Konnte Error-Handler für libpng nicht setzen."
+
+#: ../src/pslib.c:4731
+msgid "Could not find image mask."
+msgstr "Konnte Bild-Maske nicht finden."
+
+#: ../src/pslib.c:4761 ../src/pslib.c:4940 ../src/pslib.c:5097
+msgid "Allocate memory for color palette."
+msgstr "Alloziere Speicher für Farbtabelle."
+
+#: ../src/pslib.c:4762 ../src/pslib.c:4941 ../src/pslib.c:5098
+msgid "Could not allocate memory for color palette."
+msgstr "Konnte Speicher für Farbtabelle nicht allozieren."
+
+#: ../src/pslib.c:4794
+msgid "Allocate memory for row pointers of png image."
+msgstr "Alloziere Speicher für Zeilen-Zeiger des png-Bildes."
+
+#: ../src/pslib.c:4795
+msgid "Could not allocate memory for row pointer of png image."
+msgstr "Konnte Speicher für Zeilen-Zeiger des png-Bildes nicht allozieren."
+
+#: ../src/pslib.c:4815
+msgid "Could get array of image rows."
+msgstr "Konnte Array der Bildzeilen nicht holen."
+
+#: ../src/pslib.c:4910
+#, c-format
+msgid "%s is not a gif file!"
+msgstr "%s ist keine gif-Datei!"
+
+#: ../src/pslib.c:4915
+#, c-format
+msgid "Error %d while reading gif file!"
+msgstr "Fehler %d beim Lesen der gif-Datei."
+
+#: ../src/pslib.c:5084
+msgid "Could not read bmp file."
+msgstr "Konnte bmp-Datei nicht lesen."
+
+#: ../src/pslib.c:5128
+msgid "Could not stat eps file."
+msgstr "Konnte Statistik der Datei nicht lesen."
+
+#: ../src/pslib.c:5160 ../src/pslib.c:5483
+#, c-format
+msgid "Images of type '%s' not supported."
+msgstr "Bilder vom Typ '%s' werden nicht unterstützt."
+
+#: ../src/pslib.c:5250
+#, c-format
+msgid "%s must be called within 'page' or 'template' scope."
+msgstr ""
+"%s muss innerhalb des Dokumentenzustands 'page' oder 'template' aufgerufen "
+"werden."
+
+#: ../src/pslib.c:5261
+msgid "Scaling image to 0.0 will make it disappear."
+msgstr "Ein Skalierungsfaktor von 0.0 lässt das Bild verschwinden."
+
+#: ../src/pslib.c:5270
+msgid "Image has no type set."
+msgstr "Bild hat keinen Typ gesetzt."
+
+#: ../src/pslib.c:5276
+msgid "Image has no data."
+msgstr "Bild hat keine Daten."
+
+#: ../src/pslib.c:5531 ../src/pslib.c:5618 ../src/pslib.c:5871
+#, c-format
+msgid ""
+"Calling %s between pages is likely to cause problems when viewing the "
+"document. Call it before the first page."
+msgstr ""
+"Der Aufruf von %s zwischen Seiten verursacht möglicherweise Probleme beim "
+"späteren Betrachten des Dokuments. Rufen Sie es vor der ersten Seite auf."
+
+#: ../src/pslib.c:5538
+msgid "Allocate memory for template."
+msgstr "Alloziere Speicher für Template."
+
+#: ../src/pslib.c:5539
+msgid "Could not allocate memory for template."
+msgstr "Konnte Speicher für Template nicht allozieren."
+
+#: ../src/pslib.c:5544
+msgid "Could not register template."
+msgstr "Konnte template nicht registrieren."
+
+#: ../src/pslib.c:5580
+#, c-format
+msgid "%s must be called within 'template' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'template' aufgerufen werden."
+
+#: ../src/pslib.c:5606
+msgid "Painttype must be 1 or 2."
+msgstr "Painttype muss 1 oder 2 sein."
+
+#. FIXME: There must be some checking, if the passed spot color
+#. is in the same as the fill color set before.
+#: ../src/pslib.c:5625 ../src/pslib.c:5704 ../src/pslib.c:5761
+msgid "Allocate memory for pattern."
+msgstr "Alloziere Speicher für Muster."
+
+#: ../src/pslib.c:5626 ../src/pslib.c:5705
+msgid "Could not allocate memory for pattern."
+msgstr "Konnte Speicher für Muster nicht allozieren."
+
+#: ../src/pslib.c:5632 ../src/pslib.c:5711
+msgid "Could not register pattern."
+msgstr "Konnte pattern nicht registrieren."
+
+#: ../src/pslib.c:5670
+#, c-format
+msgid "%s must be called within 'pattern' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'pattern' aufgerufen werden."
+
+#: ../src/pslib.c:5750
+msgid "Current fill color is a pattern which cannot be used for shading."
+msgstr ""
+"Die aktuelle Füllfarbe ist ein Muster, welches nicht für einen Farbverlauf "
+"verwendet werden kann."
+
+#: ../src/pslib.c:5756
+msgid ""
+"The current fill spot color is not the same color as the one set for shading."
+msgstr ""
+"Die aktuelle Füll-Schmuckfarbe ist nicht die gleiche, die für den "
+"Farbverlauf benutzt werden soll."
+
+#: ../src/pslib.c:5762
+msgid "Could not allocate memory for shading."
+msgstr "Konnte Speicher für Farbverlauf nicht allozieren."
+
+#: ../src/pslib.c:5777
+msgid "Value of option list element 'N' could not be read, using default."
+msgstr ""
+"Wert des Optionenlist-Elements 'N' konnte nicht gelesen werden, benutze "
+"Voreinstellung."
+
+#: ../src/pslib.c:5780
+msgid ""
+"Value of option list element 'extend0' could not be read, using default."
+msgstr ""
+"Wert des Optionenlist-Elements 'extend0' konnte nicht gelesen werden, "
+"benutze Voreinstellung."
+
+#: ../src/pslib.c:5783
+msgid ""
+"Value of option list element 'extend1' could not be read, using default."
+msgstr ""
+"Wert des Optionenlist-Elements 'extend1' konnte nicht gelesen werden, "
+"benutze Voreinstellung."
+
+#: ../src/pslib.c:5786
+msgid ""
+"Value of option list element 'antialias' could not be read, using default."
+msgstr ""
+"Wert des Optionenlist-Elements 'antialias' konnte nicht gelesen werden, "
+"benutze Voreinstellung."
+
+#: ../src/pslib.c:5790
+msgid "Could not retrieve required parameter 'r0' from option list."
+msgstr "Konnte Parameter 'r0' in Optionenliste nicht finden."
+
+#: ../src/pslib.c:5794
+msgid "Could not retrieve required parameter 'r1' from option list."
+msgstr "Konnte Parameter 'r1' in Optionenliste nicht finden."
+
+#: ../src/pslib.c:5800
+msgid ""
+"If type of shading is 'radial' the parameters 'r0' and 'r1' must be set in "
+"the option list."
+msgstr ""
+"Wenn der Farbverlaufstyp 'radial' ist, müssen die Parameter 'r0' und 'r1' in "
+"der Optionenliste übergeben werden."
+
+#: ../src/pslib.c:5809
+msgid "Type of shading must be 'radial' or 'axial'."
+msgstr "Farbverlaufstyp muss 'radial' oder 'axial' sein."
+
+#: ../src/pslib.c:5838
+msgid "Could not register shading."
+msgstr "Konnte shading nicht registrieren."
+
+#: ../src/pslib.c:5884 ../src/ps_afm.c:642
+msgid "Allocate space for font metric."
+msgstr "Alloziere Speicher für Zeichensatz-Metriken."
+
+#: ../src/pslib.c:5899
+msgid "Could not register font."
+msgstr "Konnte Zeichensatz nicht registrieren."
+
+#: ../src/pslib.c:5953 ../src/pslib.c:5980 ../src/pslib.c:6047
+#: ../src/pslib.c:6088
+#, c-format
+msgid "%s must be called within 'font' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'font' aufgerufen werden."
+
+#: ../src/pslib.c:5986
+#, c-format
+msgid "Font already contains glyph with name '%s'."
+msgstr "Zeichensatz beinhaltet bereits ein Zeichen mit dem Namen '%s'."
+
+#: ../src/pslib.c:6024
+#, c-format
+msgid "%s must be called within 'glyph' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'glyph' aufgerufen werden."
+
+#: ../src/pslib.c:6060
+#, c-format
+msgid "First glyph '%s' of kerning pair does not exist in font."
+msgstr ""
+"Erstes Zeichen '%s' des Unterschneidungspaars existiert nicht im Zeichensatz."
+
+#: ../src/pslib.c:6065
+#, c-format
+msgid "Second glyph '%s' of kerning pair does not exist in font."
+msgstr ""
+"Zweites Zeichen '%s' des Unterschneidungspaars existiert nicht im "
+"Zeichensatz."
+
+#: ../src/pslib.c:6069
+#, c-format
+msgid "Kerning pair (%s, %s) already exists in font."
+msgstr "Unterschneidungspaar (%s, %s) existiert bereits im Zeichensatz."
+
+#: ../src/pslib.c:6101
+#, c-format
+msgid "First glyph '%s' of ligature does not exist in font."
+msgstr "Erstes Zeichen '%s' der Ligatur existiert nicht im Zeichensatz."
+
+#: ../src/pslib.c:6106
+#, c-format
+msgid "Successor glyph '%s' of ligature does not exist in font."
+msgstr "Folgezeichen '%s' der Ligatur existiert nicht im Zeichensatz."
+
+#: ../src/pslib.c:6111
+#, c-format
+msgid "Substitute glyph '%s' of ligature does not exist in font."
+msgstr "Ersetzungszeichen '%s' der Ligatur existiert nicht im Zeichensatz."
+
+#: ../src/pslib.c:6160
+msgid "Parameter style of PS_set_border_style() must be 'solid' or 'dashed'\n"
+msgstr ""
+"Parameter style von PS_set_border_style() muss entweder 'solid' oder "
+"'dashed' sein.\n"
+
+#: ../src/pslib.c:6266
+msgid ""
+"Parameter dest of PS_add_pdflink() must be 'fitpage', 'fitwidth', "
+"'fitheight', 'fitbbox', 'retain'."
+msgstr ""
+"Parameter dest von PS_add_pdflink() muss einen der folgenden Werte haben: "
+"'fitpage', 'fitwidth', 'fitheight', 'fitbbox', 'retain'."
+
+#: ../src/pslib.c:6302
+msgid ""
+"Parameter dest of PS_add_locallink() must be 'fitpage', 'fitwidth', "
+"'fitheight', 'fitbbox', 'retain'."
+msgstr ""
+"Parameter dest von PS_add_locallink() muss einen der folgenden Werte haben: "
+"'fitpage', 'fitwidth', 'fitheight', 'fitbbox', 'retain'."
+
+#: ../src/pslib.c:6345
+msgid "Parent bookmark ist out of possible range."
+msgstr "Eltern-Lesezeichen ist außerhalb des möglichen Bereichs."
+
+#: ../src/pslib.c:6356
+msgid "Could not allocate memory for new bookmark."
+msgstr "Konnte Speicher für neues Lesezeichen nicht allozieren."
+
+#: ../src/pslib.c:6364
+msgid "Allocate memory for new bookmark lookup table."
+msgstr "Alloziere Speicher für Nachschlagetabelle der Lesezeichen."
+
+#: ../src/pslib.c:6365
+msgid "Could not allocate memory for larger bookmark lookup table."
+msgstr ""
+"Konnte Speicher für größere Nachschlagetabelle der Lesezeichen nicht "
+"allozieren."
+
+#: ../src/pslib.c:6374
+msgid "Could not initialize bookmark list of new bookmark."
+msgstr ""
+"Konnte Liste der Lesezeichen eines neuen Lesezeichens nicht initialisieren."
+
+#: ../src/pslib.c:6432
+msgid "No hyphenation table set."
+msgstr "Keine Silbertrennungs-Tabelle gesetzt."
+
+#: ../src/pslib.c:6484 ../src/pslib.c:6675
+msgid "Could not build font encoding vector."
+msgstr "Konnte Encoding-Vektor des Zeichensatzes nicht erzeugen."
+
+#: ../src/pslib.c:6521
+#, c-format
+msgid "glyph '%s' is not available in current font."
+msgstr "Zeichen '%s' ist nicht im aktuellen Zeichensatz beinhaltet."
+
+#: ../src/pslib.c:6602
+msgid "Allocate memory for list of glyph names."
+msgstr "Alloziere Speicher für Liste der Zeichennamen."
+
+#: ../src/pslib.c:6603
+msgid "Could not allocate memory for list of glyph names."
+msgstr "Konnte Speicher für Liste der Zeichennamen nicht allozieren."
+
+#: ../src/pslib.c:6613
+msgid "Font does not have list of glyphs."
+msgstr "Zeichensatz hat keine Liste der Zeichennamen."
+
+#: ../src/pslib.c:6714
+msgid "No font metrics available. Cannot lookup symbol name."
+msgstr ""
+"Keine Zeichensatz-Metriken vorhanden. Kann Name des Symbols nicht "
+"nachschlagen."
+
+#: ../src/pslib.c:6755
+#, c-format
+msgid "%s must be called within 'prolog' scope."
+msgstr "%s muss innerhalb des Dokumentenzustands 'prolog' aufgerufen werden."
+
+#: ../src/pslib.c:6760
+msgid "Cannot include file without a name."
+msgstr "Kann Datei ohne Namen nicht einfügen."
+
+#: ../src/pslib.c:6765
+#, c-format
+msgid "Could not open include file '%s'."
+msgstr "Konnte Include-Datei '%s' nicht öffnen."
+
+#: ../src/pslib.c:6772
+#, c-format
+msgid "Include file '%s' is empty"
+msgstr "Include-Datei '%s' ist leer."
+
+#: ../src/pslib.c:6784
+#, c-format
+msgid "Could not allocate memory for include file '%s'"
+msgstr "Konnte Speicher für Include-Datei '%s' nicht allozieren."
+
+#: ../src/ps_afm.c:327 ../src/ps_afm.c:341 ../src/ps_afm.c:353
+#: ../src/ps_afm.c:377
+msgid "Expected ';' in afm file."
+msgstr "Erwarte ';' in AFM-Datei."
+
+#: ../src/ps_afm.c:332
+msgid "Expected 'WX' in afm file."
+msgstr "Erwarte 'WX' in AFM-Datei."
+
+#: ../src/ps_afm.c:346
+msgid "Expected 'N' in afm file."
+msgstr "Erwarte 'N' in AFM-Datei."
+
+#: ../src/ps_afm.c:368
+msgid "Expected 'L' in afm file."
+msgstr "Erwarte 'L' in AFM-Datei."
+
+#: ../src/ps_afm.c:395 ../src/ps_afm.c:405
+msgid "Expected ';' in protusion file."
+msgstr "Erwarte ';' in Randausgleichs-Datei."
+
+#: ../src/ps_afm.c:399
+msgid "Expected 'M' in protusion file."
+msgstr "Erwarte 'M' in Randausgleichs-Datei."
+
+#: ../src/ps_afm.c:648
+#, c-format
+msgid "Couldn't open afm file: %s\n"
+msgstr "Konnte afm-Datei '%s' nicht öffnen.\n"
+
+#: ../src/ps_afm.c:725
+#, c-format
+msgid ""
+"Trying to insert the glyph '%s' which already exists. Please check your afm "
+"file for duplicate glyph names."
+msgstr ""
+"Versuche das Zeichen '%s' einzufügen, das bereits existiert. Bitte "
+"überprüfen Sie die afm Datei auf doppelte Zeichen."
+
+#: ../src/ps_afm.c:923
+msgid "Too many parameters in lig kern data."
+msgstr "Zu viele Parameter in Ligatur-Kerning-Data."
+
+#: ../src/ps_afm.c:927
+msgid "Too few parameters in lig kern data."
+msgstr "Zu wenige Parameter in Ligatur-Kerning-Data."
+
+#: ../src/ps_afm.c:943
+msgid "Multiple boundary character commands?"
+msgstr "Mehrfache Begrenzungszeichen-Kommandos."
+
+#: ../src/ps_afm.c:947
+msgid "Expected number assignment for boundary char."
+msgstr "Erwarte Nummer, die den Begrenzungszeichen zugeordnet wird."
+
+#: ../src/ps_afm.c:951
+msgid "Boundary character number must be 0..255."
+msgstr "Nummer des Begrenzungszeichen muss zwischen 0 und 255 liegen."
+
+#: ../src/ps_afm.c:956
+msgid "Internal error: boundary char."
+msgstr "Interner Fehler: Begrenzungszeichen."
+
+#: ../src/ps_afm.c:970
+msgid "Bad ligature operation specified."
+msgstr "Ungültige Ligatur-Operation angegeben."
+
+#: ../src/ps_afm.c:980
+msgid "You can't lig to the boundary character!"
+msgstr "Sie können keine Ligatur mit dem Begrenzungszeichen bilden."
+
+#: ../src/ps_afm.c:1012
+msgid "You can't lig boundary character to boundary character."
+msgstr ""
+"Sie können keine Ligatur des Begrenzungszeichen mit sich selbst bilden."
+
+#: ../src/ps_afm.c:1020
+msgid "Bad form in LIGKERN command."
+msgstr "Syntax-Fehler im LIGKERN-Kommando."
+
+#: ../src/ps_afm.c:1044
+msgid "Premature end of encoding file."
+msgstr "Vorzeitiges Ende der Encoding-Datei."
+
+#: ../src/ps_afm.c:1111
+msgid "Encoding file for this font seems to be already open."
+msgstr "Encoding-Datei für diesen Zeichensatz scheint schon gelesen zu sein."
+
+#: ../src/ps_afm.c:1118
+#, c-format
+msgid "Could not open encoding file '%s'."
+msgstr "Konnte Datei '%s' mit Encoding nicht öffnen."
+
+#: ../src/ps_afm.c:1123
+msgid "Encoding file must start with name of encoding."
+msgstr "Encoding-Datei muss mit dem Namen des Encodings anfangen."
+
+#: ../src/ps_afm.c:1127 ../src/ps_util.c:501
+msgid "Allocate memory for new encoding vector."
+msgstr "Alloziere Speicher für Encoding-Vektor."
+
+#: ../src/ps_afm.c:1129 ../src/ps_util.c:503
+msgid "Could not allocate memory for encoding vector."
+msgstr "Konnte Speicher für Encoding-Vektor nicht allozieren."
+
+#: ../src/ps_afm.c:1136
+msgid "Name of encoding must be followed by an '['."
+msgstr "Name des Encodings muss von einem '[' gefolgt werden."
+
+#: ../src/ps_afm.c:1144
+msgid "Encoding vector must contain 256 glyph names."
+msgstr "Encoding-Vektor muss 256 glyph-Namen enthalten."
+
+#: ../src/ps_afm.c:1156
+msgid "Encoding vector must be ended by an ']'."
+msgstr "Encoding-Vector must durch ein ']' abgeschlossen werden."
+
+#: ../src/ps_util.c:92
+msgid "Allocate memory for hash table of char metrics"
+msgstr "Alloziere Speicher für Hash-Tabelle der Zeichenmetriken."
+
+#: ../src/ps_util.c:110
+msgid "Maximum number of scopes reached."
+msgstr "Maximale Anzahl der Dokumentenzustände erreicht."
+
+#: ../src/ps_util.c:122
+#, c-format
+msgid "Trying to leave scope %d but you are in %d."
+msgstr "Versuch Zustand %d zu verlassen, bin aber in Zustand %d."
+
+#: ../src/ps_util.c:154
+msgid "Allocate Memory for list of resources."
+msgstr "Alloziere Speicher für Liste der Ressourcen."
+
+#: ../src/ps_util.c:483
+#, c-format
+msgid "Could not insert entry %d->%s into font encoding hash table."
+msgstr ""
+"Konnte den Eintrag %d->%s in die Zeichensatzkodierungstabelle nicht einfügen."
+
+#: ../src/ps_util.c:566
+#, c-format
+msgid ""
+"The font encoding vector does not contain the glyph '%s'. Using '?' instead."
+msgstr ""
+"Der Zeichensatzkodierungsvektor enthält das Zeichen '%s' nicht. Verwende '?' "
+"stattdessen."
+
+#: ../src/ps_memprof.c:61
+#, c-format
+msgid "Aiii, no more space for new memory block. Enlarge MAXMEM in %s."
+msgstr ""
+"Aiii, kein Platz mehr für neuen Speicherblock. Vergrößern Sie MAXMEM in %s."
+
+#: ../src/ps_memprof.c:84
+#, c-format
+msgid "Aiii, did not find memory block at 0x%X to enlarge: %s"
+msgstr ""
+"Aiii, konnte zu vergrößernden Speicherblock an Adresse 0x%X nicht finden: %s"
+
+#: ../src/ps_memprof.c:101
+#, c-format
+msgid "Aiii, you cannot free a NULL pointer."
+msgstr "Aiii, kann NULL-Zeiger nicht freigegeben."
+
+#: ../src/ps_memprof.c:110
+#, c-format
+msgid "Aiii, did not find memory block at 0x%X to free."
+msgstr "Aiii, konnte Speicherblock an Adresse 0x%X nicht freigeben."
+
+#: ../src/ps_memprof.c:128
+#, c-format
+msgid "%d. Memory at address 0x%X (%d) not freed: '%s'."
+msgstr "%d. Speicher an Adresse 0x%X (%d) nicht freigegeben: '%s'."
+
+#: ../src/ps_memprof.c:138
+#, c-format
+msgid "Remaining unfreed memory: %d Bytes."
+msgstr "Verbleibender nicht freigegebener Speicher: %d Bytes."
+
+#: ../src/ps_memprof.c:140
+#, c-format
+msgid "Max. amount of memory used: %d Bytes."
+msgstr "Max. Speicherverbrauch: %d Bytes."
+
+#: ../src/ps_strbuf.c:33 ../src/ps_strbuf.c:36
+msgid "Allocate memory for string buffer"
+msgstr "Alloziere Speicher für String-Buffer."
+
+#: ../src/ps_strbuf.c:72
+msgid "Format string in string buffer is to short"
+msgstr "Format-String in String-Buffer ist zu kurz."
+
+#: ../src/ps_strbuf.c:81 ../src/ps_strbuf.c:102
+msgid "Get more memory for string buffer."
+msgstr "Alloziere mehr Speicher für Zeilen-Puffer."
+
+#: ../src/bmp.c:308
+msgid "Could not open bmp file."
+msgstr "Konnte bmp-Datei nicht öffnen."
+
+#: ../src/bmp.c:314
+msgid "File is not a bmp file."
+msgstr "Datei ist keine bmp-Datei!"
+
+#: ../src/bmp.c:422
+#, c-format
+msgid "Cannot process bmp file with bit count %d."
+msgstr "Kann bmp-Datei mit Bitanzahl %d nicht verarbeiten."
+
+#: ../src/bmp.c:442
+msgid "Allocate memory for color table."
+msgstr "Alloziere Speicher für Farbtabelle."
+
+#: ../src/bmp.c:444
+msgid "Cannot allocate memory for color table."
+msgstr "Konnte Speicher für Farbtabelle nicht allozieren."
+
+#. printf ("bitcount: %d, stride: %d, file stride: %d\n",
+#. info_hdr.iBitCount, stride, file_stride);
+#.
+#. printf ("red mask: %x, green mask: %x, blue mask: %x\n",
+#. info_hdr.iRedMask, info_hdr.iGreenMask, info_hdr.iBlueMask);
+#: ../src/bmp.c:510
+msgid "Allocate memory for image buffer."
+msgstr "Alloziere Speicher für Bild-Puffer."
+
+#: ../src/bmp.c:513
+msgid "Cannot allocate memory for image buffer."
+msgstr "Konnte Speicher für Bild-Puffer nicht allozieren."
+
+#: ../src/bmp.c:526
+#, c-format
+msgid "Scanline %lu: Seek error."
+msgstr "Scanline %lu: Seek-fehler."
+
+#: ../src/bmp.c:530
+#, c-format
+msgid "Scanline %lu: Read error."
+msgstr "Scanline %lu: Lesefehler."
+
+#: ../src/bmp.c:580
+msgid "Allocate memory for compressed scanline buffer."
+msgstr "Alloziere Speicher für komprimierten Scanline-Buffer."
+
+#: ../src/bmp.c:582
+msgid "Cannot allocate memory for compressed scanline buffer"
+msgstr "Konnte Speicher für komprimierten Scanline-Buffer nicht allozieren."
+
+#: ../src/bmp.c:585
+msgid "Allocate memory for uncompressed scanline buffer."
+msgstr "Alloziere Speicher für unkomprimierten Scanline-Buffer."
+
+#: ../src/bmp.c:587
+msgid "Cannot allocate memory for uncompressed scanline buffer"
+msgstr "Konnte Speicher für unkomprimierten Scanline-Buffer nicht allozieren."
+
+#: ../src/bmp.c:650
+msgid "Allocate memory for final uncompressed scanline buffer."
+msgstr "Alloziere Speicher für entgültig unkomprimierten Scanline-Buffer."
+
+#: ../src/bmp.c:652
+msgid "Cannot allocate memory for final uncompressed scanline buffer."
+msgstr ""
+"Konnte Speicher für entgültig unkomprimierten Scanline-Buffer nicht "
+"allozieren."
+
+#~ msgid "Glyph '%s' not found."
+#~ msgstr "Zeichen '%s' nicht gefunden."
+
+#~ msgid "File name is NULL. Use PS_open_mem() to create file in memory."
+#~ msgstr ""
+#~ "Dateizeiger ist NULL. Nutzen Sie PS_open_mem(), um die Datei im Speicher "
+#~ "zu erzeugen."
+
+#~ msgid ""
+#~ "You have to pass a write procedure until internal buffering is "
+#~ "implemented."
+#~ msgstr ""
+#~ "Sie müssen eine Ausgaberoutine übergeben, bis die interene Ausgabe-"
+#~ "Speicherung implementiert ist."
+
+#~ msgid "Document will have no valid BoundingBox. Set it manually."
+#~ msgstr "Dokument hat keine BoundingBox. Setzen Sie sie manuell."

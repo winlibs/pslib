@@ -1,0 +1,346 @@
+Version 0.4.5
+	- added support for reusable images
+	- updated man pages
+
+Version 0.4.4
+	- fixed impropper use of font in ps_stringwidth() (thanks to Roger Wimbert)
+
+Version 0.4.3
+	- renamed getline() to afm_getline() in ps_afm.c because never versions
+	  of libc have an equal symbol
+
+Version 0.4.2
+	- fixed bug in ps_setcolor()
+	- made src/hash_table.c compile on hp ux
+	- fixed typo in input encoding table
+	- fixed man pages
+	- fixed several memory leaks
+
+Version 0.4.1
+	- fixed DSC in postscript file (makes ghostview for ms windows happy)
+	- configuring using cmake now checks for libpng, libjpeg, libtiff, libz
+
+Version 0.4.0
+	- Also disolve a ligature if it isn't present in the font encoding vector
+	- handle duplicate glyphs in an afm file nicely, without leaking memory
+	- many small changes to make it compile for win32 in a mingw and
+		visual C environment (includes support for cmake)
+	- added function PS_glyph_list() which returns a list of all glyphs
+	  in a font. Free that list with PS_free_glyph_list()
+	- added function PS_glyph_width() which returns the width of a glyph
+	- changed mode of fopen to "rb" to make it work in win32
+	- added functions PS_[begin|end]_font(), PS_[begin|end]_glyph()
+	  for creating Type3 fonts
+	- added functions PS_add_kerning(), PS_add_ligature() for setting
+	  kerning pairs and ligatures of a font.
+	- added PS_glyph_show() for outputting a glyph by its name.
+	- fixed sourceforge bug 1556247, 'ordmaskuline' must be 'ordmasculine'
+
+Version 0.3.0
+	- PS_string_geometry() uses the passed font and not the current font
+	  (Closes #1711438 at sourceforge)
+	- added section about color separation in man page of pslib
+	- check for byteswap.h because mingw doesn't have it
+	- default error handler now prints to stderr instead of stdout (reported
+	  by Johannes Frank, fixes debian bug #429544)
+	- parbreak has no effect if linebreak is set (previous segm reported
+	  by Johannes Frank, fixes debian bug #429543)
+	- BMP support can be disabled
+	- PS_place_image() doesn't check for mimetypes of unsupported image
+	  formats
+	- support for separating colors. Just set the value 'separationcolor'
+	  before creating a new page to 1-4 (1=cyan, 2=magenta, ...)
+	- added missing include file for freebsd
+	- Support for other input encodings (currently only latin1 and latin2, more
+	  can be easily added)
+	- Replaced TeXBase1 by Cork fontencoding because it supports more glyphs
+	- ps_check_for_lig() gets extra first parameter *psdoc in order to be able
+	  to access the inputencoding stored in psdoc
+
+Version 0.2.7
+	- fixed setting of locale
+	- PS_set_border_style() works as expected
+	- added blind feature to PS_show_boxed()
+	- added support for gif, tiff and bmp images
+	- PS_show_boxed() sets the value 'boxheight' to the actual height of
+	  the box. This is useful if you specify a height of 0.0 for the
+		box and need to find out how high is has become. It is also useful
+		if a box isn't completely filled.
+	- passing a height of 0.0 to PS_show_boxed() will create a box long enough
+	  to contain all text.
+	- strip alpha channel from rgb pngs, because they cause a segm fault. Once
+	  I understand where the actual problem lies, it will be reenabled.
+	- make euro symbol work (replaces the currency symbol)
+	- PS_arc() and PS_arcn() behave like the arc and arcn postscript commands
+	- fixed rpm spec file
+	- PS_continue_text() finally works as expected
+	- PS_get_buffer() checks for psdoc->sb before accessing it
+	- PS_begin_page() does not overwrite the BoundingBox and Orientation
+	  anymore, if it has been explicitly set by PS_set_info()
+
+Version 0.2.6
+	- added dotted version of pslib to Creator field of postscript header
+	- PS_add_bookmarks() works even with characters in the bookmark text
+	  which are not allowed in PostScript strings (like '(', ')')
+	- PS_open_image() can read eps images from memory
+	- fixed encoding vectors at position 363-365
+	- jpeg cmyk images can be read without segm fault
+	- char to disolve ligatures can be set as parameter 'ligaturedisolvechar'
+	- Entering PS_PATH_SCOPE always starts a new PostScript path
+	  (newpath). This fixes the clipping bug.
+	- both, grayscale and rgb jpeg images can be read
+
+Version 0.2.5
+	- fixed ascii85 encoding
+	- fixed memory leak in PS_find_font() and PS_include_file()
+	- various fixes which caused segm fault under solaris
+	- added strings of ps_memproof.c to translation database
+
+Version 0.2.4
+	- free gstate resource list
+	- create unique template names.
+	- check for errors when registering a resource
+
+Version 0.2.3
+	- encoding of images can be hex or ascii85
+	- renamed PS_setoverprint() PS_setoverprintmode()
+	- support for graphic states (PS_create_gstate(), PS_set_gstate())
+	- support for shading patterns (PS_shading(), PS_shfill(),
+	  PS_shading_pattern())
+	- fixed bug when calling PS_save(), take over old gstate
+	- can now read jpeg images
+	- image data is being ascii85 encoded to reduce file size
+	- Fixed bug in PS_fill_stroke(), invalid PostScript because of missing space
+
+Version 0.2.2
+	- access inputencoding vector through ps_inputenc_naem() which uses
+	  the encoding vector of the document.
+	- implemented search path (parameter SearchPath), it is used for all
+	  files opened for reading, e.g. afm, pfb, enc and all include files.
+	- Enforce calling PS_setfont() on each page
+	- fixed some potential segm faults
+	- protusion can be turned off with the parameter 'protusion' set to false
+	- fixed memory leak caused by addkern() which isn't used
+	- fixed PS_mp_realloc() which was very broken
+	- implemented PS_get_buffer() and real in memory document creation
+
+Version 0.2.1
+	- many man page updates
+	- PS_findfont() can be called between pages if the default encoding is
+	  used and the font is not embedded.
+	- PS_get_paramter() can return current scope
+	- initial separation of fill and stroke color
+	- check parameter c1-c4 of PS_setcolor() for being in range 0-1.0
+	- PS_setcolor() accepts 'fillstroke' as second parameter to set both
+	  stroke and fill color.
+	- use PostScript commands setgraycolor, setrgbcolor, setcmykcolor and
+	  setpattern because some PostScript programs for color separation
+		rely on it.
+	- added functions PS_setoverprint() and PS_makespotcolor()
+	- Resources will be put into the prolog if they are created before
+	  the the first page. This allows to extract certain pages from the
+		document without missing the resources in the new document.
+	- added new scope PS_SCOPE_OBJECT, PS_SCOPE_PROLOG
+
+Version 0.2.0
+	- ps_fontenc_code() returns a '?' if the glyph could not be found
+	- fixed many errors in handling of font encoding
+	- output PostScript header with first call of PS_findfont() if builtin
+	  encoding is requested
+	- replaced unsafe strcpy() by strncpy() and enlarged buffers in
+	  ps_afm.c
+	- fixed man pages
+	- fixed first line of postscript document
+
+Version 0.1.15
+	- much better scope checking
+	- implemented PS_begin_pattern() and PS_end_pattern()
+	- implemented PS_begin_template() and PS_end_template()
+	- fixed many memory leaks related to font loading
+	- several man page updates
+
+Version 0.1.14
+	- added man pslib(3) which explains the overall concept of pslib and
+	  how to use the library.
+	- added function PS_set_text_pos()
+	- much better handling of builtin font encoding
+	- allow to get more values of a font with PS_get_value()
+	- New functons PS_symbol(), PS_symbol_width(), PS_symbol_name()
+	- PS_get_value() evaluates parameter modifier if font specific
+	  values like fontsize, capheight, etc. are requested. modifier is the
+		font id.
+	- PS_show2() did not use textx and texty
+	- renamed PS_stringwidth3() to PS_string_geometry()
+
+Version 0.1.13
+	- PS_hyphenate() better handles non alpha chars
+	- updated man pages
+
+Version 0.1.12
+	- much better hyphenation of words with capital letters and words starting
+	  with none alpha charaters like '('
+	- huge speed improvement if PS_show_boxed() is called several times and
+	  hyphenation is turned on, because the hyphenation table is now loaded once.
+	- added fulljustify mode for PS_show_boxed()
+
+Version 0.1.11
+	- include files are back in ${prefix}/include/libps
+	- added nested bookmarks
+
+Version 0.1.10
+	- this fixes all build problems of the last version
+
+Version 0.1.9
+	- fixed some very nasty bugs which caused a reproducable segm fault
+	  on i386
+	- many code cleanups
+
+Version 0.1.8
+	- fixed many compile warnings
+	- '-' is treated as a hyphen
+	- accelerate looking up of glyphs in font encoding vector
+	- inputencoding is propperly transformed into fontencoding
+	- check for propper scope before calling a function
+	- check for equal number of PS_save() and PS_restore() on each page
+	- PS_rect_fill() has been removed (it has not been documented anyway)
+	- drawing arcs, circle and rectangles adds only those lines to the
+	  current path which belong to the object
+	- added functions to set and check the current scope
+
+Version 0.1.7
+	- detect ligatures made of three and more characters
+	- many man page updates
+	- configure option --with-png works (even --with-png=no to disable png
+	  support)
+	- default memory management functions and errorhandler renamed to _ps_xxx()
+	- parameter text passed to PS_show_boxed() is not modified anymore because
+	  the function makes a copy of it.
+	- fixed potential segm fault in PS_show2() when text has more than 299
+	  chars, no space and kerning is turned off.
+	- Underlining is not using the descender as set in the font metrics but
+	  the one calculated for the text to show. This places the under line
+		much closer to the text if the text has no descender.
+
+Version 0.1.6
+	- value 'textrise' can be used to lift text above the base line
+	- many code cleanups
+	- new function PS_stringwidth3() to retrieve more dimensions of a string
+	- set extra space between paragraphs (parskip)
+	- Behaviour of cr at line end/on a single line can be set to either
+	  be treated as a space or a line break/paragraph break.
+	- indenting first n lines of a paragraph, starting with the m'th
+	  paragraph is now possible
+	- allow line numbering of boxed text per paragraph or the whole box
+	- cr on a single line is treated as paragraph end in boxed text
+	- last line of a paragraph is not right justified
+	- fixed some glyph names in fontencoding
+	- dvips encoding can be loaded to define more ligatures
+	- consider ligatures in PS_stringwidth2()
+	- initial support for different input/font encodings
+
+Version 0.1.5
+	- echo warning if character is not in input encoding or glyph is not
+	  in font.
+	- put fontenc, inputenc into its own file.
+	- major speed up when outputing text (a 300 page document, each
+	  page containing about 3000 characters needs now about 10 sec as
+	  opposed to 70 sec for creation.)
+
+Version 0.1.4
+	- improved different ways of text rendering
+	- support for output of invisible text
+	- added pkgconfig and *.la files to rpm devel package
+	- check if resource exists before creating a new one
+
+Version 0.1.3
+	- do not return from PS_show_boxed() if hyphenation cannot be
+	  done, but simply turn if off and issue a warning.
+	- fixed building of rpm package
+	- many man page cleanups
+	- all string parameters passed to a api function are constant
+	- fixed some nasty compile errors
+	- added more BuildDepends
+
+Version 0.1.2
+	- fixed many memory leaks
+	- major changes to image and font handling. Both are treaded as
+	  internal resources. The API reffers with interger ids. This simplies
+	  its handling from the users point of view.
+	- imagewidth, imageheight can be retrieved by PS_get_value()
+	- PS_open_mem() returns int
+	- implemented text rendering
+	- removed some debuging messages
+
+Version 0.1.1
+	- fixed serious bug in findadobe() which causes a segm fault if the
+	  glyph could not be found.
+	- indexed png files can be read
+	- fixed several bugs in PS_open_image()
+	- many enhancements for image handling (reading of eps and png)
+	- end page before closing the document
+
+Version 0.1.0
+	- added PS_get_opaque() and save last parameter of PS_new2() in PSDoc (Uwe)
+	- made PS_stringlength() work again, it always returned 0.0 (Uwe)
+	- added function to release font resource (Uwe)
+	- added pdfmark to crop page
+	- added pdfmark for document info
+	- added PS_arcn(), PS_add_weblink(), PS_add_pdflink(), PS_add_launchlink(),
+	  PS_set_border_style(), PS_set_border_color(), PS_set_border_dash(),
+		PS_add_locallink(), PS_add_bookmark(), PS_add_note() (Uwe)
+	- added many manpages (Uwe)
+	- added multi language support and german translation (Uwe)
+
+Version 0.0.9
+31/10/2003
+  - massive source reorganization
+	- added support for pkg-config
+
+19/12/2002
+	- Appearance of ligatures in text causes segm fault, fixed.
+	- '(' and ')' are written as octal values into PostScript file,
+		because they have a special meaning in PostScript.
+	- Characters below 32 are written as octal values into PostScript
+		file
+	- Ligatures can be turned on and off (parameter "ligatures")
+	- Check whether value of PS_setflat() is in range 0.2-100.0
+	- encapsulate each page in save and restore as requested in
+		the PostScript Ref. Manual on Page 62
+
+No changelog until Version 0.0.8
+
+16/03/2001
+	- Fixed a minor bug in ps_begin_page, that caused the first added
+	  page to be number 2 (Paulo Schreiner)
+
+-------------------------------------------------------------------
+Everything from here has been taken from the old HISTORY file
+
+Version 0.03 - December 21, 2000
+------------
+Major Change: PSLib uses now PHP Class
+Lib file name is now: pslib.class. 
+The included pslib.php file is for compatibility with version 0.02 of pslib.
+This file should be used for compatibility purpose only.
+
+Version 0.02 - October 26, 2000
+------------
+Lib file name changed to pslib.php
+Major Bug fixed: page number/count
+
+Other changes:
+- Function PS_open: now the parameters are ($file, $author, $title,
+  $orientation).
+- Function PS_begin_page: now the parameters are ($file, $page)
+- Function PS_set_acent: are called directly by PS_open.
+
+Version 0.01 - September 1, 2000
+------------
+First Release.
+Functions: PS_begin_page, PS_close, PS_end_page, PS_line, PS_moveto,
+PS_moveto_font, PS_open, PS_open_ps, PS_rect, PS_rect_fill, PS_rotate,
+PS_set_font, PS_show, PS_show_eval, PS_show_xy, PS_show_xy_font, PS_set_acent
+
+Thanks to:
+---------
+Ericson C. Smith, for his contribution in the conversion to class 

@@ -1,0 +1,116 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>UWE</firstname>">
+  <!ENTITY dhsurname   "<surname>STEINMANN</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>Mai 11, 2004</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>3</manvolnum>">
+  <!ENTITY dhemail     "<email>uwe@steinmann.cx</email>">
+  <!ENTITY dhusername  "Uwe Steinmann">
+  <!ENTITY dhucpackage "<refentrytitle>PS_BEGIN_PATTERN</refentrytitle>">
+  <!ENTITY funcname    "PS_begin_pattern">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2003</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&funcname;</refname>
+
+    <refpurpose>Starts a new pattern</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <para>#include &lt;pslib.h&gt;</para>
+		<para>int &funcname;(PSDoc *psdoc, float width, float height, float xstep, float ystep, int painttype)</para>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>A pattern can be thought of like a color for drawing and filling.
+		  Actually, <function>PS_setcolor</function> is used to apply a pattern.
+			The pattern itself has given dimension an a stepping in horizontal and
+			vertical direction. The stepping comes into effect when the area to be
+			fill is larger than the pattern itself. In such a case the pattern will
+			be repeated with a distance of <parameter>xstep</parameter> in horizontal
+			and <parameter>ystep</parameter> in vertical direction.</para>
+		<para>Each call of <function>&funcname;</function> must be accompanied
+		  by a call to <function>PS_end_pattern(3)</function>.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>RETURN VALUE</title>
+    <para>Returns identifier of the pattern or zero in case of an error.
+		  The identifier is a positiv number greater 0.</para>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>PS_end_pattern(3), PS_set_color(3)</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &dhemail;.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

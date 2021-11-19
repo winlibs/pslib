@@ -1,0 +1,128 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>UWE</firstname>">
+  <!ENTITY dhsurname   "<surname>STEINMANN</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>June 27, 2004</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>3</manvolnum>">
+  <!ENTITY dhemail     "<email>uwe@steinmann.cx</email>">
+  <!ENTITY dhusername  "Uwe Steinmann">
+  <!ENTITY dhucpackage "<refentrytitle>PS_FINDFONT</refentrytitle>">
+  <!ENTITY funcname    "PS_findfont">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2003</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&funcname;</refname>
+
+    <refpurpose>Loads a font</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <para>#include &lt;pslib.h&gt;</para>
+		<para>int &funcname;(PSDoc *psdoc, const char *fontname, const char *encoding, int embed)</para>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>Loads a font for later use. Before text is output with a loaded
+		  font it must be set with PS_setfont(3). This function needs the adobe
+			font metric file in order to calculate the space used up by the
+			characters. A font which is loaded within a page will only be available
+			on that page. Fonts which are to be used in the complete document
+			has to be loaded before the first call of PS_begin_page(3). Calling
+			&funcname;(3) between pages will make that font available for all
+			following pages.</para>
+		<para>&funcname; will try to load the file passed in the parameter
+		  <parameter>encoding</parameter>. Encoding files are of the same
+			syntax as those used by <command>dvips(1)</command>. They contain
+			a font encoding vector (which is currently not used but must be present)
+			and a list of extra ligatures to extend the
+			list of ligatures derived from the afm file.</para>
+		<para><parameter>encoding</parameter> can be NULL or the empty string
+		  if the default encoding (TeXBase1) schall be used.</para>
+		<para>If the encoding is set to `builtin' then there will be no
+		  reencoding and the font specific encoding will be used. This is
+			very useful with symbol fonts.</para>
+		<para>All files will first be searched in the current directory and
+		  than in the directories set by the parameter `SearchPath`.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>RETURN VALUE</title>
+    <para>Returns the identifier of the font or zero in case of an error.
+		  The identifier is a positiv number.</para>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>PS_setfont(3), PS_begin_page(3)</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &lt;&dhemail;&gt;.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

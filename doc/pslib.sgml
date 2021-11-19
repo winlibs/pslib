@@ -1,0 +1,1039 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>UWE</firstname>">
+  <!ENTITY dhsurname   "<surname>STEINMANN</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>March 28, 2011</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>3</manvolnum>">
+  <!ENTITY dhemail     "<email>uwe@steinmann.cx</email>">
+  <!ENTITY dhusername  "Uwe Steinmann">
+  <!ENTITY dhucpackage "<refentrytitle>PSLIB</refentrytitle>">
+  <!ENTITY funcname    "pslib">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+			<year>2004-2011</year>
+			<holder>&dhusername;</holder>
+		</copyright>
+		&dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&funcname;</refname>
+
+    <refpurpose>Library to create PostScript files</refpurpose>
+  </refnamediv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>pslib is a library to create PostScript files with a set of
+		  about 50 functions for line drawing, text output, page handling, etc.
+			It is very similar to other libraries like panda, cpdf or pdflib which
+			produce PDF. pslib can to a certain degree replace those libraries if
+			the PostScript file is converted to PDF with ghostscripts excellent
+			pdf writer. The results achieved with pslib can be even better when
+			it comes to text output, because it supports kerning, ligatures and
+			hyphenation.
+			</para>
+		<para>pslib is a C-library but there are bindings for Perl, Python, Tcl
+		  and PHP.
+		  This documentation will only describe the functions of the C-library,
+			though most of what is said here can be applied to the other language
+			bindings.
+			The PHP extension of pslib is documented in PEAR. The extension is
+			called ps.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>GETTING STARTED</title>
+
+    <para>Programs which want to use pslib will have to include the
+		  header file <literal>libps/pslib.h</literal> and link against libps.
+			Before doing any document
+			creation the library should be initialized with
+			<function>PS_boot(3)</function>. It will set the locale and selects
+			the messages in your language as defined by the environment variable
+			LC_ALL. Your locale settings will affect hyphenation which uses
+			<function>isalpha(3)</function> and <function>tolower(3)</function>
+			to prepare the word for hyphenation. German umlauts will
+			be filtered out if the locale is not set properly. The library should
+			be finalized by <function>PS_shutdown(3)</function>.</para>
+		<para>A PostScript document is
+			represented by a pointer to <literal>PSDoc</literal>. Such a document
+			can be created with <function>PS_new(3)</function> and destroyed
+			with <function>PS_delete(3)</function>. <function>PS_new(3)</function> 
+			returns a pointer to <literal>PSDoc</literal>. You can handle several
+			documents at the same time. The following example will do the basic
+			preparation without creating a document on the disk.</para>
+	  <programlisting>
+...
+#include &lt;libps/pslib.h&gt;
+
+main(int argc, char *argv[]) {
+	PSDoc *psdoc;
+
+	PS_boot();
+	psdoc = PS_new();
+	PS_delete(psdoc);
+	PS_shutdown();
+}
+	  </programlisting>
+		<para>In order to actually create a PostScript document on disk you will
+		  have to call</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_open_file</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>filename</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>or</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_open_fp</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>FILE *<parameter>fp</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para><function>PS_open_file(3)</function> will create a new file
+		  with the given file name, while <function>PS_open_fp(3)</function>
+			will use an already open file. Both require a pointer to
+			<literal>PSDoc</literal>.</para>
+		<para>If the document shall not be created on disk but in memory,
+		  which can be very handy in web application, one can use</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_open_mem</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>(*writeproc) <parameter>(PSDoc *p, void *data, size_t size)</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>The second parameter is a function which is called instead of pslib's
+		  own output function.</para>
+		<para>Extending the previous example with one of the former three functions
+		  to open a document will at least create an initial empty PostScript
+			document. It has to be closed with <function>PS_close(3)</function>.
+			<function>PS_close(3)</function> will only close the file if it
+			was opened by <function>PS_open_file(3)</function>.
+			</para>
+	  <programlisting>
+...
+#include &lt;libps/pslib.h&gt;
+
+main(int argc, char *argv[]) {
+	PSDoc *psdoc;
+
+	PS_boot();
+	psdoc = PS_new();
+	PS_open_file(psdoc, "test.ps");
+	PS_close(psdoc);
+	PS_delete(psdoc);
+	PS_shutdown();
+}
+	  </programlisting>
+		<para>There are more sophisticated funktions to start a new PostScript
+		  document. They are used when error handling and memory management
+			shall be controlled by the calling application. Check the manual pages
+			<function>PS_new2(3)</function> and <function>PS_new3(3)</function> for
+			a detailed description or read the section about memory management
+			and error handler below..</para>
+  </refsect1>
+  <refsect1>
+    <title>PAGE HANDLING</title>
+
+    <para>A PostScript document contains one or more pages. pslib provides
+		  the function</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_begin_page</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>width</parameter></paramdef>
+		    <paramdef>float <parameter>height</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>and</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_end_page</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>to start a new page with the given size in points and to end
+		  a page. All functions that draw any visible output will
+			only work within a page. The page size has no meaning for the PostScript
+			interpreter but will be used by ghostscript or Acrobat Distiller
+			to set
+			the page size in the PDF document. Some PostScript viewer also use
+			the size to resize the output window.</para>
+		<para>Starting the first page of a document will internally end the
+		  PostScript header. This may have impact on resource handling. For
+			more information see the section about resource handling.</para>
+  </refsect1>
+  <refsect1>
+    <title>COORDINATE SYSTEM, SCOPE</title>
+
+    <para>PostScript defines a coordinate system with its origin in the
+		  lower left corner of a page. Its base unit is point which is 1/72 of an
+			inch. Unless the coordinate system is scaled all values will be expected
+			in point.</para>
+		<para>pslib provides many functions which may not be called at any time.
+		  For example, drawing and text output functions may only be called within
+			a page, path constrution functions may only be called within a path.
+			pslib defines so called scopes which are checked before executing a
+			function. Those scopes are prolog, document, page, pattern, template,
+			path and object. If for example, one tries
+			to output text outside of a page or within a path, then an error
+			will be issued.</para>
+  </refsect1>
+  <refsect1>
+    <title>DRAWING, PATH CONSTRUCTION</title>
+
+    <para>PostScript does not have any functions to draw a line directly but
+		  uses a two pass mechanism. First a path is constructed which is then
+			drawn (stroken). The path can also be used for filling an area or
+			to clip further drawing. A path must not be a continues line, it
+			may consist of several subpaths.</para>
+		<para>Each path is started with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_moveto</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>If this function is called within a path, it will just start
+		  a new subpath. The path can be constructed with one of the following
+			functions.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_lineto</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_rect</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+		    <paramdef>float <parameter>width</parameter></paramdef>
+		    <paramdef>float <parameter>height</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_circle</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+		    <paramdef>float <parameter>radius</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_arc</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+		    <paramdef>float <parameter>radius</parameter></paramdef>
+		    <paramdef>float <parameter>alpha</parameter></paramdef>
+		    <paramdef>float <parameter>beta</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_arcn</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+		    <paramdef>float <parameter>radius</parameter></paramdef>
+		    <paramdef>float <parameter>alpha</parameter></paramdef>
+		    <paramdef>float <parameter>beta</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_curveto</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>x1</parameter></paramdef>
+		    <paramdef>float <parameter>y1</parameter></paramdef>
+		    <paramdef>float <parameter>x2</parameter></paramdef>
+		    <paramdef>float <parameter>y2</parameter></paramdef>
+		    <paramdef>float <parameter>x3</parameter></paramdef>
+		    <paramdef>float <parameter>y3</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Once a path is constructed it can be optionally closed by</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_closepath</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Closing a path means to add a segment from the last point to
+		  the starting point of the path. It is helpful if an area is to be
+			filled. In most cases
+		  the path is used for drawing which is done with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_stroke</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>In such a case you would not want to close the path. As already
+		  mentioned a path can also be filled or even both with the
+			functions.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_fill</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>void <function>PS_fill_stroke</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para><function>PS_fill_stroke(3)</function> does first fill and than
+		  stroke a path. This is important to realize because the stroken line
+			may cover parts of the filled area, depending on how wide it is.<para>
+  </refsect1>
+  <refsect1>
+    <title>TEXT OUTPUT</title>
+
+    <para>Text output is definetly one of the strongest parts of pslib.
+		  pslib supports kerning, protusion, ligatures and hyphenation. All of
+			it is in a wide range customizeable by parameters. The hyphenation
+			algorithmn is based on the one used by TeX without the ability to take a
+			whole paragraph into acount.</para>
+		<para>Text output requires at least the Adobe font metric files, even
+		  for the standard PostScript fonts. pslib has not, like other libraries,
+			the font metrics for the standard fonts compiled in. They are freely
+			available in the internet. If the font is to be embedded into
+			the document, then the font outline (.pfb file) is also needed.</para>
+    <para>Additional files are needed for more sophisticated text output.
+		  It will be explained later in this documentation.
+		  </para>
+		<para>Before being able to output any text a font has to be loaded
+		  with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_findfont</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>fontname</parameter></paramdef>
+		    <paramdef>const char *<parameter>encoding</parameter></paramdef>
+		    <paramdef>int <parameter>embed</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>It returns a unique id for the font.
+		  The fontname is the filename of the Adobe font metrics file
+		  without the extension .afm. If the font shall be embedded into the
+			document, then the last parameter must be set to 1 and the file
+			<parameter>fontname</parameter>.pfb must be present.</para>
+		<para>The <parameter>encoding</parameter> specifies the font encoding
+		  to be used in the PostScript document. It defaults to TeXBase1, which
+			is a reasonable set of glyphs covering most western languages, when
+			the empty string or NULL is passed. The special encoding 'builtin'
+			stands for the encoding as provided by the font itself. It is usually
+			AdobeStandardEncoding which is a smaller set of glyphs than TeXBase1.
+			If unsure leave the encoding parameter empty.
+			</para>
+		<para>Calling <function>PS_findfont(3)</function> is a sensitive matter.
+		  Thought it may be called in almost every scope it is highly recommended
+			to call it either within a page or before the first page (within the
+			prolog). Especially when
+			the font is to be embedded or uses a non default encoding. This limitation
+			has to be enforced in order to be able to extract certain pages from
+			the document without corruption. Programs like <command>psselect</command>
+			extract a page by taking the prolog of the PostScript document and the
+			selected page. Resources, like fonts, not being part of the 
+			page or the prolog will not be included into the resulting document and
+			using those resources will provoke errors.
+			pslib will output a warning in case of
+			potential problems.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_setfont</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>int <parameter>fontid</parameter></paramdef>
+		    <paramdef>float <parameter>size</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+	  <para>sets the font which was loaded with
+		  <function>PS_findfont(3)</function>	in a given size. After calling this
+			function everything is prepared to output text with one of the following
+			functions. Each text output function uses kerning pairs and ligatures
+			if available.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_show</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>text</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>outputs text at the current text position and moves the x position
+		  to the end of the text. If text is to be output at a certain position on
+			the page the function</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_show_xy</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>text</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+		    <paramdef>float <parameter>y</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>can be used. Both functions also exist in a version which requires
+		  the length of the string as the third parameter. The are called
+			<function>PS_show2(3)</function> and <function>PS_show_xy2(3)</function>.
+			</para>
+		<para>The functions mentioned so far will print all text into one line.
+		  If one would like to wrap a longer text into a box, the function</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_show_boxed</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>text</parameter></paramdef>
+		    <paramdef>float <parameter>left</parameter></paramdef>
+		    <paramdef>float <parameter>bottom</parameter></paramdef>
+		    <paramdef>float <parameter>width</parameter></paramdef>
+		    <paramdef>float <parameter>height</parameter></paramdef>
+		    <paramdef>const char *<parameter>hmode</parameter></paramdef>
+		    <paramdef>const char *<parameter>feature</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>should be usesd. It breaks the text into lines of length
+		<parameter>width</parameter> and fills the box until there is no space
+		  left.
+			The function returns the number of remaining chars which did not fit
+			into the box. This number can be used to create a second, third, ...
+			box for the remaining text. Text can be left and/or right justified
+			or centered depending on the parameter <parameter>hmode</parameter>.
+			Hyphenation is turned off by default, because it needs to be set up
+			before it can be used.
+			</para>
+    <para>Once again, working with fonts is an error prune issue, because
+	    it is important
+		  at what position in the document the fonts are loaded. At a rule of
+			thumb you should load fonts which are used on several pages of
+			the document before the first page, and fonts only used on a
+			single page within that page. For a more detailed discussion see the
+			section on resource handling.</para>
+  </refsect1>
+  <refsect1>
+    <title>HYPHENATION, KERNING, LIGATURES, PROTUSION</title>
+
+    <para>pslib's advanced text output features cover hyphenation, kerning,
+		  ligatures and protusion. Kerning and ligatures are turned on by default
+			and will be used if the current font supports it. Some ligatures are
+			built into pslib, just in case the font has the glyphs but misses the
+			command to build the ligature. Those ligatures are fi, fl, ff, ffi,
+			and ffl. Both ligatures and kerning can be turned off by setting the
+			parameter 'ligature' respectively 'kerning' to false. pslib automatically
+			inserts a ligature if the character sequence of that ligature is found.
+			If a ligature is not to be used then its character sequence must be
+			broken up with a broken bar character. Ligatures will never be used if
+			charspacing has a value unequal to zero.</para>
+		<para>If a font
+			provides more ligatures as those mentioned before, they are usually
+			at places not conform to the Adobe Standard Encoding. There glyph name
+			is often the name of the glyph supposed to be at that position in the
+			Adobe Standard Encoding. pslib can utilize those ligatures when a so
+			called encoding file is supplied. The encoding file contains an
+			font encoding vector and definitions for extra ligatures. An encoding
+			file is very similar to encoding files used by <command>dvips</command>
+			and usually found in <filename>/usr/share/texmf/dvips/base</filename>.
+			Adding a ligature requires a line like the following:</para>
+		<programlisting>
+% LIGKERN char1 char2 =: ligature ;
+		</programlisting>
+		<para>If 'char1' is followed by 'char2' they will be both replaced by the
+		  glyph 'ligature'. This replacement may not be used exclusively for
+			ligatures like 'fi' or 'ff' but for any combination of characters.
+			Quite common is a hyphen followed by a hyphen, which is replaced by an
+			endash.</para>
+		<para>In order to set up hyphenation you will first need a hyphenation
+		  dictionary for your language. Since pslib uses a well know hyphenation
+			algorithmn used not just by TeX, but also by openoffice and scribus,
+			one can take the dictionary from those programs. If you have scribus
+			installed on your system, you will find the dictionaries for many
+			languages in <filename>/usr/lib/scribus/dicts</filename>.</para>
+		<para>Hyphenation is turned on when the parameter 'hyphenation' is set
+		  to true and the parameter 'hyphendict' contains the file name of the
+			hyphenation dictionary.</para>
+		<para>Protusion is an advanced method to improve the appearance of text
+		  margins. It is only used by the function
+			<function>PS_show_boxed(3)</function> if the horizontal mode is set
+			to 'justify'. A margin may not look straight if lines end or begin
+			with characters with a 'light' appearance like a period, hyphen or comma. 
+			Those characters should reach into the margin to make it look straight.
+			pslib tries to read a so called protusion file whenever a font is
+			loaded with <function>PS_findfont(3)</function>. If it cannot be found
+			a warning is issued. The file must be named 'fontname.pro' and contains
+			a line for each character with protusion information. Finding reasonable
+			protusion values can be a tedious work.</para>
+		<programlisting>
+N hyphen ; M 0 650 ;
+N comma ; M 0 650 ;
+N period ; M 0 650 ;
+N semicolon ; M 0 500 ;
+		</programlisting>
+		<para>The syntax is similar to an .afm file. The protusion values for the
+		  left and right margin are the last two numbers.</para>
+  </refsect1>
+  <refsect1>
+    <title>LOADING FILES</title>
+
+    <para>All files which are being loaded by pslib are searched
+		  for in the current directory and the 'SearchPath'. 'SearchPath' is
+			a parameter which is set by <function>PS_set_parameter(3)</function>.
+			<function>PS_set_parameter(3)</function> can be called multiple
+			times to add several directories to the search path. Function which
+			are affected by the search path are <function>PS_findfont(3)</function>
+			for loading .afm, .pfb, and .enc files,
+			<function>PS_include_file(3)</function>.</para>
+  </refsect1>
+  <refsect1>
+    <title>RESOURCE HANDLING</title>
+
+    <para>Resources in pslib are fonts, patterns, templates, spot colors, and
+		  images. Templates and images are treated equally. A resource is usally
+			loaded or created and can be used repeatingly afterwards. Resource
+			handling is
+			somewhat sensitve, in terms of the position in the document where they
+			are loaded or created. Plain PostScript does not care about where a
+			resource is defined as long as it is known before it is used. PostScript
+			documents are not always printed but quite often displayed on the screen
+			or processed by software. Most software which reads PostScript documents
+			does not just interpret the PostScript code but also so called Document
+			Structuring Conventions (DSC). Such instructions are helpful to provide
+			further information about the document and to partition the document
+			into sections like a prolog and pages. Programs evaluating those
+			instructions can easily determine the page size, the creator, title or
+			author, the number of pages and can jump straight to a certain page
+			without interpreting the PostScript code before that page. Especially
+			isolating certain pages requires the document to be created stringly
+			following the DSC. This means that all resource which are used through
+			out the document must be either created on each page where they are
+			used (not very sensible if the resource is used more than once)
+			or within the prolog right before the first
+			page. pslib will put everything before the first page into the prolog.
+			On the other side the prolog may not contain any PostScript code that
+			does output something. pslib makes sure this rule is not violated.
+			</para>
+		<para>In practice the above rules do not apply equally to all resource
+		  but can be seen as a general rule of thumb. Fonts can under certain
+			circumstances be loaded at any time (see the section on 'Text output').
+			</para>
+		<para>Please note, that starting from 0.4.5 of pslib images are treated as
+			resources as well, though this behaviour can be turned of by setting
+			`imagereuse' to `false' if existing code shows unexpected side effects.
+			</para>
+  </refsect1>
+  <refsect1>
+    <title>IMAGES</title>
+
+    <para>Placing images on a page in the PostScript document is similar
+		  to font handling. First the image has to be loaded with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_open_image_file</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>type</parameter></paramdef>
+		    <paramdef>const char *<parameter>filename</parameter></paramdef>
+		    <paramdef>const char *<parameter>stringparam</parameter></paramdef>
+		    <paramdef>int <parameter>intparam</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>or</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_open_image</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>type</parameter></paramdef>
+		    <paramdef>const char *<parameter>source</parameter></paramdef>
+		    <paramdef>const char *<parameter>data</parameter></paramdef>
+		    <paramdef>long <parameter>length</parameter></paramdef>
+		    <paramdef>int <parameter>width</parameter></paramdef>
+		    <paramdef>int <parameter>height</parameter></paramdef>
+		    <paramdef>int <parameter>components</parameter></paramdef>
+		    <paramdef>int <parameter>bpc</parameter></paramdef>
+		    <paramdef>const char *<parameter>params</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+	  <para>and than it can be placed on the page with the function</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_place_image</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>int <parameter>imageid</parameter></paramdef>
+		    <paramdef>float <parameter>x</parameter></paramdef>
+				<paramdef>float <parameter>y</parameter></paramdef>
+		    <paramdef>float <parameter>scale</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Once an image is not needed anymore it should be closed to free
+		  the resources.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_close_image</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>int <parameter>imageid</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Until version 0.4.4 of pslib images are not real resources. Each
+			call of
+			<function>PS_place_image(3)</function> wrote the complete image
+			into the PostScript file. Starting with version 0.4.5 images are
+			by default reusable objects which are saved once into the PostScript
+			file (with <function>PS_open_image(3)</function> or
+			<function>PS_open_image_file(3)</function>) and replayed as often as
+			desired with <function>PS_place_image(3)</function>. This behaviour
+			can be turned off if `imagereuse' is set to `false'. Reusing images
+			usually has the advantages of smaller file size, faster processing
+			of the PostScript file and the possibility to place images into
+			templates which was not allowed till version 0.4.4. If an image is
+			placed into a template and is not needed anymore, it can be closed
+			right after ending the template.</para>
+		<para>Please note, that everything sayed about resources becomes true
+		  for reusable images, too.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>TEMPLATES</title>
+
+    <para>Templates are a bit like images created within the document
+		  itself. Their big advantage is its reusability on any page thoughout
+			the document by simply referencing them. This saves a lot of disk space
+			if the template is placed many times. They are often used for logos or
+			headers which are to
+			be placed on each page. A template is started with the function</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_begin_template</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>width</parameter></paramdef>
+				<paramdef>float <parameter>height</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <para>Like a page or an image a template has a boundig box. Within that
+		  box almost any operation for drawing, text output, etc. can be called.
+			Everything beyond the bounding box is clipped.
+			A template is ended and ready for use with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_end_template</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Each template has its own id which was returned by
+			<function>PS_begin_template(3)</function>. This id is like an image id and
+			can be passed to <function>PS_place_image(3)</function>. This makes a
+			template identical to an image in terms of handling. Any call of
+			<function>PS_place_image(3)</function> will only place a reference to
+			the template into the document which results in a small document
+			size.</para>
+  </refsect1>
+  <refsect1>
+    <title>COLORS</title>
+
+    <para>pslib supports all colorspaces available in PostScript including
+		  spot colors. Opposed to the PostScript color modell which knows just
+			one current color, pslib distinguishes between a stroke and fill color.
+			Colors are set with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_setcolor</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>type</parameter></paramdef>
+		    <paramdef>const char *<parameter>colorspace</parameter></paramdef>
+		    <paramdef>float <parameter>c1</parameter></paramdef>
+		    <paramdef>float <parameter>c2</parameter></paramdef>
+		    <paramdef>float <parameter>c3</parameter></paramdef>
+		    <paramdef>float <parameter>c4</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para><parameter>type</parameter> determines if the fill, stroke or
+		  both (fillstroke) colors are set by the function. The colorspace
+			can be any of 'gray', 'rgb', 'cmyk', 'spot', or 'pattern'. The colorspace
+			'pattern' is somewhat special and will be discussed in the next section.
+			The float parameters contain the actual values of the color. Depending
+			on the colorspace not all parameters will be evaluated. Spot colors
+			need to be created before with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_makespotcolor</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>name</parameter></paramdef>
+		    <paramdef>float<parameter>reserved</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>The name of the spot color can be any string value, thought one will
+		  usually take the official name of the spot color, e.g. PANTONE 114 C.
+			Each spot color has a color in an alternative colorspace which is used
+			when the spot color itself cannot be used. This is always the case when
+			the PostScript file is viewed on a computer screen or printed by an ink
+			printer. If the PostScript document is separated for professional
+			printing, the alternative color has no meaning. The alternative color is
+			taken from the current fill color. This means, that you have to call
+			<function>PS_setcolor(3)</function> and set the current fill color before
+			calling <function>PS_makespotcolor(3)</function>.
+			<function>PS_makespotcolor(3)</function> can only handle fill colors in
+			the colorspace 'gray', 'rgb', or 'cmyk'.</para>
+		<para><function>PS_makespotcolor(3)</function> returns the id of the spot
+		  color which is passed as parameter <parameter>c1</parameter> to
+			<function>PS_setcolor(3)</function>. All spot colors used in the document
+			should be defined before the first page, otherwise they will not be
+			included into the list of custom colors within the document comments
+			section at the beginning of the file.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>COLOR SEPARATION</title>
+
+    <para>Printing a document sometimes requires to separate colors
+		  because certain printers print each color separately.
+			Color separation is often done on the
+			multi color document by the printing company. However, pslib can 
+			separate colors very easily by setting the value 'separationcolor' on
+			a value from 1 to 4, depending on the color you would like to separate
+			(1=cyan, 2=magenta, 3=yellow, 4=black). This has to be done before
+			creating a page. The resulting document will
+			contain only those parts in the separated color. Consequently, one
+			has to create four identical pages, each called with a different value
+			for 'separationcolor'.
+			</para>
+  </refsect1>
+  <refsect1>
+    <title>PATTERNS</title>
+
+    <para>Filling an area can be done with a single color or a self designed
+		  pattern. Such a pattern can be any drawing. Actually, it can be everything
+			which can be put on a page. If a pattern is used for filling it is
+			repeatingly placed in horizontal and vertical direction with a given
+			distance. Pattern are started with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_begin_pattern</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>width</parameter></paramdef>
+				<paramdef>float <parameter>height</parameter></paramdef>
+				<paramdef>float <parameter>xstep</parameter></paramdef>
+				<paramdef>float <parameter>ystep</parameter></paramdef>
+				<paramdef>int <parameter>painttype</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>and ended with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_end_pattern</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Within those two functions almost any output operation can be
+		  used for creating the pattern. Once a pattern is created, it
+			can be used like a color for filling. Just pass the string "pattern"
+			and the pattern id (returned by <function>PS_begin_pattern(3)</function>)
+			to <function>PS_setcolor(3)</function>. Any following drawing and/or
+			filling operation will now use the pattern.</para>
+  </refsect1>
+  <refsect1>
+    <title>HYPERLINKS, BOOKMARKS</title>
+
+    <para>PostScript itself does not support any hyperlink functions like
+		  PDF does. Nervertheless, one can embed hyperlinks into a PostScript
+			document which will be used if the document is later converted to PDF.
+			Such commands for embedding hyperlinks are called pdfmarks. pdfmarks
+			allow to store any feature in a PostScript document which is available
+			in PDF. The PostScript interpreter itself will not care about the
+			pdfmarks. This features makes pslib a viable alternative to libraries
+			creating PDF directly.</para>
+		<para>Some functions of pslib will place a pdfmark silently into the
+		  document. The most prominent function is
+			<function>PS_begin_page(3)</function> which stores the page size with
+			the help of pdfmarks.</para>
+		<para>pslib supports several types of hyperlinks, which are inserted
+		  with the following function.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_add_weblink</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>llx</parameter></paramdef>
+		    <paramdef>float <parameter>lly</parameter></paramdef>
+		    <paramdef>float <parameter>urx</parameter></paramdef>
+		    <paramdef>float <parameter>ury</parameter></paramdef>
+		    <paramdef>const char *<parameter>url</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_add_pdflink</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>llx</parameter></paramdef>
+		    <paramdef>float <parameter>lly</parameter></paramdef>
+		    <paramdef>float <parameter>urx</parameter></paramdef>
+		    <paramdef>float <parameter>ury</parameter></paramdef>
+		    <paramdef>const char *<parameter>filename</parameter></paramdef>
+		    <paramdef>int <parameter>page</parameter></paramdef>
+		    <paramdef>const char *<parameter>dest</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_add_locallink</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>llx</parameter></paramdef>
+		    <paramdef>float <parameter>lly</parameter></paramdef>
+		    <paramdef>float <parameter>urx</parameter></paramdef>
+		    <paramdef>float <parameter>ury</parameter></paramdef>
+		    <paramdef>int <parameter>page</parameter></paramdef>
+		    <paramdef>const char *<parameter>dest</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_add_launchlink</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>llx</parameter></paramdef>
+		    <paramdef>float <parameter>lly</parameter></paramdef>
+		    <paramdef>float <parameter>urx</parameter></paramdef>
+		    <paramdef>float <parameter>ury</parameter></paramdef>
+		    <paramdef>const char *<parameter>filename</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <para>Each of the above function requires a rectangle with its lower
+		  left corner at <parameter>llx</parameter>, <parameter>lly</parameter>
+			and its upper right corner at <parameter>urx</parameter>,
+			<parameter>ury</parameter>. The rectangle will not be visible in the
+			PostScript file and marks the sensitve area of the link. When the
+			document is concerted to PDF, the rectangle will become visible.
+			Its appearance can be set with the functions.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_set_border_style</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>style</parameter></paramdef>
+		    <paramdef>float <parameter>width</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para><parameter>style</parameter> can be either 'solid' or 'dashed'.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_set_border_color</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>red</parameter></paramdef>
+		    <paramdef>float <parameter>green</parameter></paramdef>
+		    <paramdef>float <parameter>blue</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_set_border_dash</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>float <parameter>black</parameter></paramdef>
+		    <paramdef>float <parameter>white</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <para>pslib also supports to add bookmarks which will be displayed
+		  by PDF viewers as a table of contents next to the document. Bookmarks have
+			a title and point to a page in the document. The can be added with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_add_bookmark</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>text</parameter></paramdef>
+		    <paramdef>int <parameter>parent</parameter></paramdef>
+		    <paramdef>int <parameter>open</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>To build up a hierachical tree of bookmarks, one can pass a
+		  parent bookmark when creating a new one. The parent bookmark is referenced
+			by its id as it is returned by the function itself. A bookmark is
+			always added for the current page. It is shown open if the parameter
+			<parameter>open</parameter> is greater 0.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>TYPE3 FONTS</title>
+
+    <para>PostScript knows several types of fonts. The most common is
+		  called Type1 which are usally supplied by many font manufactures
+			as .pfb files. pslib can read those fonts and use them right away.
+			Another type of font is called Type3. Type3 fonts distinguish from
+			Type1 fonts by the way its glyphs are constructed. Glyphs in Type3
+			fonts are created with regular PostScript commands and can easily
+			be created with pslib. All you need to do is start a new font with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_begin_font</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>fontname</parameter></paramdef>
+		    <paramdef>int <parameter>reserved</parameter></paramdef>
+		    <paramdef>double <parameter>a</parameter></paramdef>
+		    <paramdef>double <parameter>b</parameter></paramdef>
+		    <paramdef>double <parameter>c</parameter></paramdef>
+		    <paramdef>double <parameter>d</parameter></paramdef>
+		    <paramdef>double <parameter>e</parameter></paramdef>
+		    <paramdef>double <parameter>f</parameter></paramdef>
+		    <paramdef>const char *<parameter>optlist</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>and end finish it with</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_end_font</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Each font contains of a number of glyphs which are created
+		  with a pair of</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_begin_glyph</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>glyphname</parameter></paramdef>
+		    <paramdef>double <parameter>wx</parameter></paramdef>
+		    <paramdef>double <parameter>llx</parameter></paramdef>
+		    <paramdef>double <parameter>lly</parameter></paramdef>
+		    <paramdef>double <parameter>urx</parameter></paramdef>
+		    <paramdef>double <parameter>ury</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>and</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_end_glyph</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>Within a glyph each command is allowed to create a path and to
+		  stroke or fill it. Once a font is created it can be used like any
+			other font by calling <function>PS_setfont(3)</function>.</para>
+		<para>The font cannot be saved to a file and used by other applications
+		  but it can used within the pslib document which has several advantages
+			when certain symbols, e.g. logos are used through out a document.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>MEMORY MANAGEMENT, ERROR HANDLING</title>
+
+    <para>pslib uses by default its on memory management and error handling
+		  functions. In many cases the calling application has its own memory
+			management and error handling. pslib can be told to use those
+			functions by calling <function>PS_new2(3)</function> instead of
+			<function>PS_new(3)</function>.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_new2</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>(errorhandler *) <parameter>(PSDoc *p, int type, const char *msg, void *data)</parameter></paramdef>
+		    <paramdef>(allocproc *) <parameter>(PSDoc *p, size_t size, const char *caller)</parameter></paramdef>
+		    <paramdef>(reallocproc *) <parameter>(PSDoc *p, void *mem, size_t size, const char *caller)</parameter></paramdef>
+		    <paramdef>(freeproc *) <parameter>(PSDoc *p, void *mem)</parameter></paramdef>
+		    <paramdef>void *<parameter>opaque</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+		<para>The errorhandler and the last parameter <parameter>opaque</parameter>
+		  allow to pass arbitrary data as the last parameter to its own
+			errorhandler. This is quite often used if errors are being output
+			in a widget of a graphical toolkit. The pointer to that widget can
+			be passed as <parameter>opaque</parameter> and pslib will pass it
+			forward to the error handler.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>DOCUMENT INFORMATION</title>
+
+    <para>PostScript documents usually contain a header made of comments
+		  with information about the document. The printer usually disregards
+			this information but many PostScript viewer use it. Besides that,
+			one can also place pdfmarks into the PostScript document which contain
+			the title, keywords, author and other information. pslib provides the
+			function <function>PS_set_info(3)</function> to set those fields.</para>
+    <funcsynopsis>
+      <funcprototype>
+		    <funcdef>int <function>PS_set_info</function></funcdef>
+		    <paramdef>PSDoc *<parameter>psdoc</parameter></paramdef>
+		    <paramdef>const char *<parameter>key</parameter></paramdef>
+		    <paramdef>const char *<parameter>value</parameter></paramdef>
+      </funcprototype>
+	  </funcsynopsis>
+    <para><function>PS_set_info(3)</function> must be called before the
+		  first page. Calling it later will have no effect and produces a warning.
+			The function may also be used to set the bounding box of the document.
+			Usually there is no need for it, because the dimension of the first
+			page will be used for the bounding box.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>The detailed manual pages for each function of the library.</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &dhemail;.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

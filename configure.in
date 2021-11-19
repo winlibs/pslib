@@ -1,0 +1,278 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_PREREQ(2.52)
+AC_INIT(pslib, 0.4.6, http://sourceforge.net/projects/pslib)
+AC_CONFIG_SRCDIR(src/pslib.c)
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+AC_PROG_INTLTOOL
+
+AC_CANONICAL_HOST
+
+LIBPS_MAJOR_VERSION=0
+LIBPS_MINOR_VERSION=4
+LIBPS_MICRO_VERSION=6
+LIBPS_VERSION=$LIBPS_MAJOR_VERSION.$LIBPS_MINOR_VERSION.$LIBPS_MICRO_VERSION
+LIBPS_VERSION_INFO=`expr $LIBPS_MAJOR_VERSION + $LIBPS_MINOR_VERSION`:$LIBPS_MICRO_VERSION:$LIBPS_MINOR_VERSION
+
+AC_SUBST(LIBPS_MAJOR_VERSION)
+AC_SUBST(LIBPS_MINOR_VERSION)
+AC_SUBST(LIBPS_MICRO_VERSION)
+AC_SUBST(LIBPS_VERSION)
+AC_SUBST(LIBPS_VERSION_INFO)
+
+VERSION=${LIBPS_VERSION}
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+dnl AC_PROG_CPP
+AC_PATH_PROG(RM, rm, /bin/rm)
+AC_PATH_PROG(MV, mv, /bin/mv)
+AC_PATH_PROG(TAR, tar, /bin/tar)
+
+dnl Add the languages which your application supports here.
+ALL_LINGUAS="de"
+AM_GLIB_GNU_GETTEXT
+GETTEXT_PACKAGE=pslib
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", GETTEXT_PACKAGE)
+
+AC_PROG_LIBTOOL
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_BIGENDIAN
+AC_STRUCT_TM
+
+dnl Checks for header files.
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_CHECK_HEADERS(fcntl.h unistd.h ctype.h dirent.h errno.h malloc.h)
+AC_CHECK_HEADERS(stdarg.h sys/stat.h sys/types.h time.h)
+AC_CHECK_HEADERS(ieeefp.h nan.h math.h float.h)
+AC_CHECK_HEADERS(stdlib.h sys/socket.h)
+AC_CHECK_HEADERS(sys/time.h sys/select.h sys/mman.h)
+AC_CHECK_HEADERS(byteswap.h)
+
+dnl Checks for library functions.
+AC_FUNC_STRFTIME
+AC_CHECK_FUNCS(strdup strndup strerror snprintf)
+AC_CHECK_FUNCS(finite isnand fp_class class fpclass)
+AC_CHECK_FUNCS(strftime localtime)
+
+dnl Checks for inet libraries:
+AC_CHECK_FUNC(gethostent, , AC_CHECK_LIB(nsl, gethostent))
+AC_CHECK_FUNC(setsockopt, , AC_CHECK_LIB(socket, setsockopt))
+AC_CHECK_FUNC(connect, , AC_CHECK_LIB(inet, connect))
+
+dnl Determine what socket length (socklen_t) data type is
+AC_MSG_CHECKING([for type of socket length (socklen_t)])
+
+dnl Checks for isnan in libm if not in libc
+dnl AC_CHECK_FUNC(isnan, , AC_CHECK_LIB(m, isnan,
+dnl   [M_LIBS="-lm"; AC_DEFINE(HAVE_ISNAN)]))
+
+dnl AC_CHECK_FUNC(isinf, , AC_CHECK_LIB(m, isinf,
+dnl   [M_LIBS="-lm"; AC_DEFINE(HAVE_ISINF)]))
+
+AC_CHECK_PROG(DOC_TO_MAN, docbook-to-man, docbook-to-man)
+if test ! "$DOC_TO_MAN" ; then
+  DOCDIR=""
+	AC_MSG_RESULT([docbook-to-man could not be found. I will not build man pages!]) 
+else
+	DOCDIR=doc
+fi
+
+dnl AM_PATH_LIBHNJ
+LIBHNJ_CFLAGS=
+LIBHNJ_LIBS=
+AC_SUBST(LIBHNJ_CFLAGS)
+AC_SUBST(LIBHNJ_LIBS)
+
+PNG_PREFIX=no
+AC_ARG_WITH(png, [  --with-png=DIR          Path to png library (/usr)])
+case "${withval}" in
+ 	no)
+		echo "Disabled support for png images on users request" ;;
+ 	*)
+ 		for i in ${withval} /usr /usr/local ; do
+ 			if test -r $i/include/png.h ; then
+ 				PNG_LIBDIR=-L$i/lib
+ 				PNG_INCLUDEDIR=-I$i/include
+ 				PNG_PREFIX=$i
+ 				break
+			fi
+ 		done ;;
+esac
+ 
+if test "${PNG_PREFIX}" != "no" ; then
+	AC_CHECK_LIB(png, png_read_image,
+ 		[
+		HAVE_PNGLIB=1;
+		PNG_LIBS=-lpng;
+		AC_DEFINE(HAVE_LIBPNG, 1, "Support for png images")
+		],
+		[AC_MSG_RESULT([libpng not found. I will compile without png support.]); HAVE_PNGLIB=0],
+		"$PNG_LIBDIR")
+fi
+
+JPEG_PREFIX=no
+AC_ARG_WITH(jpeg, [  --with-jpeg=DIR         Path to jpeg library (/usr)])
+case "${withval}" in
+ 	no)
+		echo "Disabled support for jpeg images on users request" ;;
+ 	*)
+ 		for i in ${withval} /usr /usr/local ; do
+ 			if test -r $i/include/jpeglib.h ; then
+ 				JPEG_LIBDIR=-L$i/lib
+ 				JPEG_INCLUDEDIR=-I$i/include
+ 				JPEG_PREFIX=$i
+ 				break
+			fi
+ 		done ;;
+esac
+ 
+if test "${JPEG_PREFIX}" != "no" ; then
+	AC_CHECK_LIB(jpeg, jpeg_read_header,
+ 		[
+		HAVE_JPEGLIB=1;
+		JPEG_LIBS=-ljpeg;
+		AC_DEFINE(HAVE_LIBJPEG, 1, "Support for jpeg images")
+		],
+		[AC_MSG_RESULT([libjpeg not found. I will compile without jpeg support.]); HAVE_JPEGLIB=0],
+		"$JPEG_LIBDIR")
+fi
+
+GIF_PREFIX=no
+AC_ARG_WITH(gif, [  --with-gif=DIR          Path to gif library (/usr)])
+case "${withval}" in
+ 	no)
+		echo "Disabled support for gif images on users request" ;;
+ 	*)
+ 		for i in ${withval} /usr /usr/local ; do
+ 			if test -r $i/include/gif_lib.h ; then
+ 				GIF_LIBDIR=-L$i/lib
+ 				GIF_INCLUDEDIR=-I$i/include
+ 				GIF_PREFIX=$i
+ 				break
+			fi
+ 		done ;;
+esac
+ 
+if test "${GIF_PREFIX}" != "no" ; then
+	AC_CHECK_LIB(gif, DGifOpenFileName,
+ 		[
+		HAVE_GIFLIB=1;
+		GIF_LIBS=-lgif;
+		AC_DEFINE(HAVE_LIBGIF, 1, "Support for gif images")
+		],
+		[AC_MSG_RESULT([libgif not found. I will compile without gif support.]); HAVE_GIFLIB=0],
+		"$GIF_LIBDIR")
+fi
+
+TIFF_PREFIX=no
+AC_ARG_WITH(tiff, [  --with-tiff=DIR         Path to tiff library (/usr)])
+case "${withval}" in
+ 	no)
+		echo "Disabled support for tiff images on users request" ;;
+ 	*)
+ 		for i in ${withval} /usr /usr/local ; do
+ 			if test -r $i/include/tiffio.h ; then
+ 				TIFF_LIBDIR=-L$i/lib
+ 				TIFF_INCLUDEDIR=-I$i/include
+ 				TIFF_PREFIX=$i
+ 				break
+			fi
+ 		done ;;
+esac
+ 
+if test "${TIFF_PREFIX}" != "no" ; then
+	AC_CHECK_LIB(tiff, TIFFOpen,
+ 		[
+		HAVE_TIFFLIB=1;
+		TIFF_LIBS=-ltiff;
+		AC_DEFINE(HAVE_LIBTIFF, 1, "Support for tiff images")
+		],
+		[AC_MSG_RESULT([libtiff not found. I will compile without tiff support.]); HAVE_TIFFLIB=0],
+		"$TIFF_LIBDIR")
+fi
+
+AC_ARG_ENABLE(bmp, [  --disable-bmp           Disable support for BMP (on)])
+if test "$enableval" = "no" ; then
+    echo Disabling BMP support
+		AC_DEFINE(DISABLE_BMP, 1, "Support for bmp images")
+fi
+
+dnl
+dnl Extra flags
+dnl
+PS_CFLAGS=""
+
+AC_ARG_WITH(debug, [  --with-debug            Add the debugging module (on)])
+if test "$with_debug" = "no" ; then
+    echo Disabling DEBUG support
+    WITH_DEBUG=0
+    DEBUG_OBJ=
+else    
+    WITH_DEBUG=1
+    DEBUG_OBJ=debugPS.o
+fi
+
+AC_SUBST(INT32_T)
+
+AC_SUBST(WITH_DEBUG)
+AC_SUBST(DEBUG_OBJ)
+
+AC_SUBST(CFLAGS)
+AC_SUBST(PS_CFLAGS)
+
+AC_SUBST(PNG_LIBDIR)
+AC_SUBST(PNG_LIBS)
+AC_SUBST(PNG_INCLUDEDIR)
+
+AC_SUBST(JPEG_LIBDIR)
+AC_SUBST(JPEG_LIBS)
+AC_SUBST(JPEG_INCLUDEDIR)
+
+AC_SUBST(GIF_LIBDIR)
+AC_SUBST(GIF_LIBS)
+AC_SUBST(GIF_INCLUDEDIR)
+
+AC_SUBST(TIFF_LIBDIR)
+AC_SUBST(TIFF_LIBS)
+AC_SUBST(TIFF_INCLUDEDIR)
+
+AC_SUBST(HTML_DIR)
+dnl AC_SUBST(HAVE_ISNAN)
+dnl AC_SUBST(HAVE_ISINF)
+
+dnl AC_SUBST(M_LIBS)
+
+AC_SUBST(DOCDIR)
+AC_SUBST(DOC_TO_MAN)
+
+dnl AC_DEFINE_UNQUOTED(LIBPS_MAJOR_VERSION, ${LIBPS_MAJOR_VERSION})
+dnl AC_DEFINE_UNQUOTED(LIBPS_MINOR_VERSION, ${LIBPS_MINOR_VERSION})
+dnl AC_DEFINE_UNQUOTED(LIBPS_MICRO_VERSION, ${LIBPS_MICRO_VERSION})
+
+AC_OUTPUT([
+Makefile
+pslib.spec
+libps.pc
+doc/Makefile
+include/Makefile
+data/Makefile
+src/Makefile
+src/ght_hash_table.h
+po/Makefile.in
+include/libps/psversion.h
+])
+
+echo
+echo "Configuration:"
+echo "  Prefix:     $prefix"
+echo
+

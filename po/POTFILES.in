@@ -1,0 +1,8 @@
+src/pslib.c
+src/ps_afm.c
+src/ps_util.c
+src/ps_error.c
+src/ps_memory.c
+src/ps_memprof.c
+src/ps_strbuf.c
+src/bmp.c

@@ -1,0 +1,129 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>UWE</firstname>">
+  <!ENTITY dhsurname   "<surname>STEINMANN</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>March 21, 2011</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>3</manvolnum>">
+  <!ENTITY dhemail     "<email>uwe@steinmann.cx</email>">
+  <!ENTITY dhusername  "Uwe Steinmann">
+  <!ENTITY dhucpackage "<refentrytitle>PS_OPEN_IMAGE</refentrytitle>">
+  <!ENTITY funcname    "PS_open_image">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2003-2011</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&funcname;</refname>
+
+    <refpurpose>Reads an image for later placement</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <para>#include &lt;pslib.h&gt;</para>
+		<para>int &funcname;(PSDoc *psdoc, char *type, char *source, char *data, int lenght, int width, int height, int components, int bpc, const char *params)</para>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>Reads an image which is already available in memory. The parameter
+		  <parameter>source</parameter> is currently not evaluated and assumed
+			to be `memory'. The parameter <parameter>type</parameter> can be either
+			`raw' or `eps'. Images in raw format are expected to be a stream of pixels
+			starting in the upper left and ending in the lower right corner. Each
+			pixel is a tuple of components representing the colors. Each component
+			consists of <parameter>bpc</parameter> bit. Color imgags expect the
+			components to be stored in RGB or CMYK order. The number of components
+			implies the colorspace. 4 components imply a CMYK image and not an
+			RGB image with an alpha channel. This restriction may be removed in
+			later versions.</para>
+		<para>EPS images are expect as stored in a file. There is no need to
+		  set any other paramter. The height und width of the image is
+			taken from the bounding box within the image data.</para>
+		<para>Since version 0.4.5 of pslib images are read by default for later
+			reuse. This means that the image is saved into a so called reusable
+			stream object. Later calls of <function>PS_place_image(3)</function>
+			will only put a short
+			sequence of postscript code into the output file replaying the image.
+			This reduces the overall postscript file size, speeds up its processing by
+			the postscript rip and allows to place images into templates. This
+			behaviour can be turned off by setting the parameter `imagereuse'
+			to false with <function>PS_set_parameter(3)</function>.</para>
+  </refsect1>
+  <refsect1>
+    <title>RETURN VALUE</title>
+    <para>Returns identifier of the image or zero in case of an error.
+		  The identifier is a positiv number greater 0.</para>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>PS_open_image_file(3), PS_place_image(3), PS_close_image(3)</para>
+
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; &dhemail;.</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

@@ -1,0 +1,19 @@
+% grid.ps
+% This file contains a page hook to draw a grid on each page
+% The PslibPageStartHook command expects to find the following on the stack.
+% page number
+% ury (upper right corner of page, y coordinate)
+% urx (upper right corner of page, x coordinate)
+% lly (lower left corner of page, y coordinate)
+% llx (lower left corner of page, x coordinate)
+% Use 'B' to define the command
+/PslibPageBeginHook{
+  /pagenumber exch def /ury exch def /urx exch def /lly exch def /llx exch def
+	0.7 setgray
+	0 72 urx { dup 0 moveto ury lineto stroke } for
+	0 72 ury { dup 0 exch moveto urx exch lineto stroke } for
+	0.0 setgray
+  /Helvetica findfont 8 scalefont setfont
+	0 72 urx { dup 2 add 2 moveto 72 div 10 (aaaaaaaaaa) cvrs show ('') show } for
+	72 72 ury { dup 2 add 2 exch moveto 72 div 10 (aaaaaaaaaa) cvrs show ('') show } for
+} B
